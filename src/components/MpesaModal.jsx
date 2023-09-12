@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark} from '@fortawesome/free-solid-svg-icons';
 
 import { backend } from './data/url';
+import Location from './Location';
 
 const MpesaModal = ({toggleMpesa, amount, items, KES}) => {
 
@@ -42,10 +43,9 @@ const [phone, setCustomerPhone] = useState('');
 const [loading, setLoading]= useState(false);
 const [error, setError]= useState(false)
 const [success, setSuccess] = useState(false);
-const [city,setCity] = useState('');
-const [postalCode,setPostalCode] = useState('');
-const [streetAddress,setStreetAddress] = useState('');
-const [country,setCountry] = useState('');
+const location = localStorage.getItem('selectedLocation');
+let newPrice = localStorage.getItem('location-Price');
+console.log(newPrice)
 // const [itemIds, setItemIds] = useState([])
 
 console.log(items)
@@ -79,7 +79,7 @@ console.log(itemIds)
   const response = await fetch(`${backend}/mpesaPayment/stk/`, {
     method: 'POST',
     headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({phone, itemIds, items, itemTitles, KES, amount:2})
+    body: JSON.stringify({phone, itemIds, items, itemTitles, KES, amount:1, location, newPrice})
 })
 
 // const json = await response.json()
@@ -129,53 +129,21 @@ if(response.ok){
                     <button onClick={toggleMpesa} className='border border-gray-300 rounded-sm py-1 px-1.5'>
                     <FontAwesomeIcon icon={faXmark} size="lg" />
                     </button>
-                </div>
-                <div className="flex flex-col gap-2 mt-4 px-2">
-                  <h4>Fill in the following details:</h4>
-                <input type="text"
-                       placeholder="City"
-                       value={city}
-                       name="city"
-                       onChange={ev => setCity(ev.target.value)}
-                       className="outline outline-gray-400 p-2 max-w-4xl"
-                       required 
-                       />
-                <input type="text"
-                       placeholder="Postal Code"
-                       value={postalCode}
-                       name="postalCode"
-                       onChange={ev => setPostalCode(ev.target.value)}
-                       className="outline outline-gray-400 p-2"
-                       required 
-                       />
-              <input type="text"
-                     placeholder="Street Address"
-                     value={streetAddress}
-                     name="streetAddress"
-                     onChange={ev => setStreetAddress(ev.target.value)}
-                     className="outline outline-gray-400 p-2"
-                     required 
-                     />
-              <input type="text"
-                     placeholder="Country"
-                     value={country}
-                     name="country"
-                     onChange={ev => setCountry(ev.target.value)}
-                     className="outline outline-gray-400 p-2"
-                     required 
-                     />
- </div>
+                </div>      
+ 
+            <Location  />
                 <div  className='text-start px-2 flex flex-col  gap-1.5 items-center w-full py-5  justify-center'>
                     <p className='text-start w-full'>Enter Phone Number:</p>
                     <input 
                     type='text' 
-                    className='border-0 outline outline-gray-400 w-full py-1 px-2 rounded-sm mx-auto bg-gray-50 focus:outline-green-600 focus:outline-2'
+                    className='border-0 outline outline-gray-400 w-1/2 py-1 px-2 rounded-sm mx-auto bg-gray-50 focus:outline-green-600 focus:outline-2'
                     value={phone}
                     required
                     placeholder='Phone Number: eg 07000000000'
                     onChange={e=>setCustomerPhone(e.target.value.toLocaleLowerCase())}
                     />
                 </div>
+     
                 <div className='flex justify-center items-center'>
 
                 <button onClick={()=>makepayment(amount)} 

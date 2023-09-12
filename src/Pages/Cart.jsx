@@ -30,6 +30,8 @@ const Cart = () => {
       const [canceled, setIsCanceled] = useState(false);
       const KES = localStorage.getItem('USD_KSH');
       const orders= useContext(OrdersContext);
+      const [signInPrompt, setSignInPrompt] = useState(false);
+      
       useEffect(() => {
 
         if (typeof window === 'undefined') {
@@ -44,7 +46,19 @@ const Cart = () => {
         }
         window.scrollTo(0, 0);
       }, []);
+    //   const [sizeChoice, setsizeChoice] = useState(size[0]) 
+    //  const handlsizeChange = (event) => {
+    //    setsizeChoice(event.target.value);
+    //    };
+    //    const [colorChoice, setColorChoice] = useState(color[0]) 
+    //    const handlcolorChange = (event) => {
+    //      setColorChoice(event.target.value);
+    //      };
+    
 const checkout=()=>{
+  if(!user) {
+    setSignInPrompt(true)
+  }
           const body ={
             items: cart.items,
             // user:user.user._id 
@@ -86,7 +100,9 @@ const toggleSuccess=()=>{
 const toggleCancel=()=>{
   setIsCanceled(false);
 }
-
+const proceedToPay=()=>{
+  checkout()
+}
     return ( 
     <div>
       {mpesaModal &&
@@ -136,14 +152,54 @@ const toggleCancel=()=>{
 
             <p className='mt-3 font-semibold'>{item.brands}</p>          
          
- <div className="flex flex-col justify-between items-end">
+ <div className="flex flex-col justify-between items-end ">
            <h3 className='text-end'>${item.price} || KSH{Math.ceil(item.price*KES*item.quantity)} </h3>
-           <div className="flex gap-2 items-center py-2">
-            <h5>Quantity:</h5>
-          <button disabled={item.quantity===1000} onClick={() => cart.increaseQuantity(item._id)} className="p-2 border w-10">+</button>
-          <div className="text-lg">{item.quantity}</div>
-          <button onClick={() => cart.removeOneFromCart(item._id)} disabled={item.quantity===1} className="p-2 border w-10">-</button>
+           <div className="flex gap-2 items-center my-2 border border-gray-400 rounded-sm max-w-fit">
+           {/* <ul className='my-2'>
+  <li className='flex gap-2'>
+    <p className=''>Color: </p>
+   
+   {item.color.map((color) => (
+     <label key={color}>
+     <input
+      type="radio" 
+      name="radio"
+      value={color}
+      checked={colorChoice === color}
+      onChange={handlcolorChange}
+      />
+     <span>{color}</span>
+   </label>
+    ))
+   }
+    
+    </li>
+</ul>
 
+<ul className='my-2'>
+  <li className='flex gap-2'>
+    <p className=''>Sizes: </p>
+   
+   {item.size.map((size) => (
+    <label key={size}>
+			<input
+       type="radio" 
+       name="size"
+       value={size}
+       checked={sizeChoice === size}
+       onChange={handlsizeChange}
+       />
+			<span>{size}</span>
+		</label>
+    ))
+   }
+    
+    </li>
+</ul> */}
+
+          <button onClick={() => cart.removeOneFromCart(item._id)} disabled={item.quantity===1} className="p-2  border-0 w-10 hover:text-purple-500 cursor-pointer">-</button>
+          <div className="text-lg">{item.quantity}</div>
+          <button disabled={item.quantity===1000} onClick={() => cart.increaseQuantity(item._id)} className="p-2 border-0 w-10 hover:text-purple-500 cursor-pointer">+</button>
           </div>
           <button onClick={() => cart.deleteFromCart(item._id)} 
           className="duration-75 cursor-pointer hover:text-red-500">Remove <FontAwesomeIcon icon={faTrash} size="lg" /></button>
@@ -190,7 +246,7 @@ const toggleCancel=()=>{
     Pay with Mpesa
    </button>
 
-   {
+   {signInPrompt &&
         <div className='fixed z-20 ml-[1%] mt-[10%] bg-white shadow-lg shadow-purple-500 rounded-md max-w-2xl p-4'>
           <div className='flex flex-col gap-2.5'>
             <h3 className=''>Sign In to Proceed</h3>
@@ -204,7 +260,9 @@ const toggleCancel=()=>{
       overflow-hidden relative mt-5  cursor-pointer p-2 flex justify-center w-[45%] lg:w-[40%] rounded-sm 
        duration-1000 border-0 transition-all  text-purple-500 outline outline-offset-2 outline-purple-500
         box-border hover:text-white hover:scale-110 hover:shadow-lg hover:shadow-purple-400  hover:before:w-80 '>Sign In</button>
-            <button  className='before:absolute before:-ml-12  before:transition-[width] before:top-0 before:w-0 before:h-full before:bg-purple-500 before:skew-x-45 before:z-[-1] before:duration-1000 
+            <button
+            onClick={proceedToPay}
+              className='before:absolute before:-ml-12  before:transition-[width] before:top-0 before:w-0 before:h-full before:bg-purple-500 before:skew-x-45 before:z-[-1] before:duration-1000 
       overflow-hidden relative mt-5  cursor-pointer p-2 flex justify-center w-[45%] lg:w-[40%] rounded-sm 
        duration-1000 border-0 transition-all  text-purple-500 outline outline-offset-2 outline-purple-500
         box-border hover:text-white hover:scale-110 hover:shadow-lg hover:shadow-purple-400  hover:before:w-80 '>Skip & Proceed</button>

@@ -33,9 +33,9 @@ const Footer = () => {
                     </div>
                     <div>
                         <p className='font-semibold py-1'><FontAwesomeIcon icon={faEnvelope} size="lg" /> beskmerchants@gmail.com</p>
-                        {/* <p className='font-semibold py-1'><FontAwesomeIcon icon={faPhone} size="lg" /> +254 700 612 1</p> */}
                         <p className='font-semibold py-1'><FontAwesomeIcon icon={faPhone} size="lg" /> +254 765 383 877</p>
-                        <p className='font-semibold py-1'><FontAwesomeIcon icon={faPhone} size="xl" /> +254 736 997 327</p>
+                        <p className='font-semibold py-1'><FontAwesomeIcon icon={faPhone} size="xl" /> +254 715 383 877</p>
+                        <p className='font-semibold py-1'><FontAwesomeIcon icon={faPhone} size="xl" /> +254 700 068 121</p>
                     <div className='p-4 flex gap-2 justify-start items-center'>
                         <div className='w-8 h-8 rounded-full border-2 cursor-pointer border-gray-500 duration-75 flex justify-center items-center text-gray-500 hover:text-blue-500 hover:border-blue-500'>
                             <a href="https://www.facebook.com/" rel="noreferrer" target="_blank"><FontAwesomeIcon icon={faFacebook} size="xl" /></a>
@@ -88,9 +88,9 @@ const Footer = () => {
             <div className="flex flex-col md:flex-row gap-2.5 font-semibold text-gray-500 items-center">
                 <p>Privacy Policy | Terms & Conditions </p>
                 <div className='flex gap-2 items-center'>
-                    <img src={mastercard} alt={mastercard} />
-                    <img src={visacard} alt={visacard} className='h-16 md:h-20' />
-                    <img src={MPESA} alt={MPESA} className='h-6 md:h-8' />
+                    <img src={mastercard} alt={mastercard}  className='h-12 md:h-20' />
+                    <img src={visacard} alt={visacard} className='h-12 md:h-20' />
+                    <img src={MPESA} alt={MPESA} className='h-4 md:h-8' />
                 </div>
             </div>
             </div>     

@@ -6,7 +6,7 @@ export const useAuthContext = ()=>{
     const context = useContext( AuthContext)
 
     if(!context){
-        throw Error('useAuth context must be used inside a WorkoutsContextProvider')
+        throw Error('useAuth context must be used inside a ProductsContextProvider')
     }
 
     return context

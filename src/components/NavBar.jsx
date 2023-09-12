@@ -3,9 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../Hooks/useAuthContext';
 import { useLogout } from '../Hooks/useLogout';
 
+// const { user, login, logout } = useContext(UserContext);
+
 // FontAwesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping, faCaretDown, faMagnifyingGlass, faRightToBracket } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faCaretDown, faMagnifyingGlass, faRightToBracket } 
+from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 
 import { CartContext } from "../Context/CartContext";
@@ -17,7 +20,8 @@ const NavBar = ({ categories, handleBrands, handleContacts, handleOffers, search
   const navigate = useNavigate();
   const {user} = useAuthContext();
   const cart = useContext(CartContext);
-  const logout = useLogout();
+  const {logout} = useLogout();
+
 
 const  cartValue =useRef();
 const cartPage =()=>{
@@ -42,15 +46,22 @@ const ordersPage=()=>{
   navigate('/Orders')
 }
 const handleLogout =()=>{
-  logout;
+  logout();
 }
 
 const userProfile = () =>{
   setUserBar(!userBar)
 }
+const modalRef = useRef(null);
+const handleClickOutside = (event) => {
+  if (!modalRef.current || !modalRef.current.contains(event.target)) {
+    setUserBar(false)
+  }
+};
+
     return (
-   <div className="flex flex-col bg-black w-full box-border top-0 fixed z-20 mb-10">
-  {userBar &&  <div className='absolute z-20 ml-[70vw] lg:ml-[86vw] rounded-md mt-12 bg-white shadow-lg py-4 px-6 '>
+   <div className="flex flex-col bg-black w-full box-border top-0 fixed z-20 mb-10" >
+  {userBar &&  <div  ref={modalRef} className='absolute z-20 ml-[70vw] lg:ml-[86vw] rounded-md mt-12 bg-white shadow-lg py-4 px-6 '>
     {
             !user &&
              <button className="cursor-pointer p-1 duration-75 bg-purple-500 rounded-md  outline-1 outline-purple-500 flex gap-1 items-center px-4 py-2 text-white" onClick={signInUser}>
@@ -60,7 +71,7 @@ const userProfile = () =>{
           }
     
     {user && <div className='flex flex-col gap-2'>
-      <button className="flex gap-2 cursor-pointer " onClick={handleLogout}>
+      <button className="flex gap-2 cursor-pointer duration-75 hover:text-purple-500" onClick={handleLogout}>
          <FontAwesomeIcon icon={faRightToBracket} size="lg" />
             <p className="text-sm">Logout</p>
       </button>
@@ -80,7 +91,7 @@ const userProfile = () =>{
 }
     </div>
 }
-     <div className="flex items-center justify-between bg-black w-full  text-gray-50 py-2 px-4  box-border ">
+     <div className="flex flex-col sm:flex-row md:items-center justify-between bg-black w-full  text-gray-50 py-2 px-4  box-border ">
       <h2 className='text-lg cursor-pointer' onClick={homePage}>BESK MERCHANTS</h2> 
   
       <div className="flex gap-5 items-center max-w-7xl">

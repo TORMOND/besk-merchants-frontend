@@ -35,7 +35,7 @@ className='w-screen box-border md:w-full h-full flex relative  p-0 m-0 bg-white'
 <div 
 className="w-[80%] aspect-square object-contain  bg-no-repeat mt-2 animate-pulse  bg-gray-300 rounded-md flex">
 {/* <img className='w-full aspect-square object-contain ' /> */}
-<FontAwesomeIcon icon={faImage}  size="3xl" className='m-auto text-gray-500  animate-pulse ' />
+<FontAwesomeIcon icon={faImage}  size="xl" className='m-auto text-gray-500  animate-pulse ' />
 </div> 
           <div className="p-4 font-semibold">
           <p className='text-sm md:text-md animate-pulse bg-gray-300 p-3 w-[80%] rounded-md'></p>
@@ -53,7 +53,7 @@ className="w-[80%] aspect-square object-contain  bg-no-repeat mt-2 animate-pulse
 <div 
 className="w-[80%] aspect-square object-contain  bg-no-repeat mt-2 animate-pulse  bg-gray-300 rounded-md flex">
 {/* <img className='w-full aspect-square object-contain ' /> */}
-<FontAwesomeIcon icon={faImage}  size="3xl" className='m-auto text-gray-500  animate-pulse ' />
+<FontAwesomeIcon icon={faImage}  size="xl" className='m-auto text-gray-500  animate-pulse ' />
 </div> 
           <div className="p-4 font-semibold">
           <p className='text-sm md:text-md animate-pulse bg-gray-300 p-3 w-[80%] rounded-md'></p>
@@ -70,7 +70,7 @@ className="w-[80%] aspect-square object-contain  bg-no-repeat mt-2 animate-pulse
 <div 
 className="w-[80%] aspect-square object-contain  bg-no-repeat mt-2 animate-pulse  bg-gray-300 rounded-md flex">
 {/* <img className='w-full aspect-square object-contain ' /> */}
-<FontAwesomeIcon icon={faImage}  size="3xl" className='m-auto text-gray-500  animate-pulse ' />
+<FontAwesomeIcon icon={faImage}  size="xl" className='m-auto text-gray-500  animate-pulse ' />
 </div> 
           <div className="p-4 font-semibold">
           <p className='text-sm md:text-md animate-pulse bg-gray-300 p-3 w-[80%] rounded-md'></p>
@@ -87,7 +87,7 @@ className="w-[80%] aspect-square object-contain  bg-no-repeat mt-2 animate-pulse
 <div 
 className="w-[80%] aspect-square object-contain  bg-no-repeat mt-2 animate-pulse  bg-gray-300 rounded-md flex">
 {/* <img className='w-full aspect-square object-contain ' /> */}
-<FontAwesomeIcon icon={faImage}  size="3xl" className='m-auto text-gray-500  animate-pulse ' />
+<FontAwesomeIcon icon={faImage}  size="xl" className='m-auto text-gray-500  animate-pulse ' />
 </div> 
           <div className="p-4 font-semibold">
           <p className='text-sm md:text-md animate-pulse bg-gray-300 p-3 w-[80%] rounded-md'></p>

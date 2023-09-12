@@ -1,32 +1,66 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuthContext } from '../Hooks/useAuthContext';
-import useFetch from '../UseFetch';
 
 // FontAwesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import {faChevronRight, faStar  } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { backend } from './data/url';
 import { useNavigate } from 'react-router-dom';
-
+import StarRating from './StarRating'
 const CommentsSection = () => {
   const navigate = useNavigate()
     const [loading, setLoading] = useState(false);
-    // const [success, setSuccess] = useState(false);
     const [isError, setIsError] = useState(false);
-    const [comments, setComments ] = useState('');
+    const [comment, setComments ] = useState('');
     const {user} = useAuthContext();
     const userName = user? user.user.firstName: null;
     const prod_id = localStorage.getItem('id');
-    const {data:userComments, isPending, error} = useFetch(`${backend}/comments/getAllComments/${prod_id}`);
-    
+    const [isPending, setisPending] =useState(true);
+    const [error, setError] = useState(null);
+    const [userComments, setUserComments] =useState(null)
+    const [success, setSuccess] = useState(false);
+    const [averageReviews, setAverageReviews] = useState(0)
+  
+    // const [ratingCount, setRatingCount] = useState(0);
+    useEffect(()=>{
+      const abortCont = new AbortController();
+      // setController(abortCont);
+      fetch(`${backend}/comments/${prod_id}`, {signal:abortCont.signal})
+      .then(res=>{
+          if(!res.ok){
+              throw Error('Could not fetch that resource')
+          }
+          return res.json()
+      })
+      .then(data=>{
+        console.log(data.comments)
+       setUserComments(data.comments)
+       setisPending(false)
+       setError(null)
+
+      })
+      .catch(err=>{
+          if(err.name ==='AbortError'){
+              console.log('Fetch Aborted')
+          }else{
+              console.log(err)
+              setError(err.message)
+              setisPending(false) 
+          }
+          
+      })
+      return ()=> abortCont.abort();
+  }, [success]);
+
     const sendComment= async()=>{
+      const [rating, setRating] = localStorage.getItem('rate') || 1;
         setLoading(true)
         if(userName === null)return navigate('/LoginPage')
-      const response = await fetch(`${backend}/comments/sendComment/`, {
+      const response = await fetch(`${backend}/comments/`, {
         method: 'POST',
         headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({comments, userName, prod_id})
+        body: JSON.stringify({comment, userName, productId:prod_id, productRating:rating})
     })
     
     const json = await response.json()
@@ -35,24 +69,59 @@ const CommentsSection = () => {
         setLoading(false)
         setIsError(true)
     }
-    if(response.ok){
+      setSuccess(true)
       setLoading(false)
       setIsError(false)  
     }
-    
-    }
 
+    const StarCount = ({ reviewValue }) => {
+      const [rating, setRating] = useState(0);
+    
+      useEffect(() => {
+        // Get the review value from the props.
+        const value = reviewValue || 0;
+    
+        // Set the initial rating to the review value.
+        setRating(value);
+      }, [reviewValue]);
+    
+      const stars = [...Array(5)].map((star, index) => {
+        const isFilled = index+1 <= reviewValue;
+        
+        return (
+          <span
+            key={index}
+            className={` ${isFilled? "text-yellow-500" : "text-gray-500"} `}
+          >
+             <FontAwesomeIcon icon={ faStar } 
+             
+          />
+          </span>
+        );
+      });
+    
+      return (
+        <div className="star-rating">
+          {stars}  {reviewValue}
+        </div>
+      );
+    };
+    
+    
   return (
     <div className="max-w-6xl p-4 mt-5 bg-white">
         <div className=''>
             <h4 className='mt-2'>Share your thoughts with other customers</h4>
-            <button className='mt-2'>Write a customer Review</button>
         </div>
-        <div className="flex gap-2.5 mt-2">
-       <input
+        <div className="flex flex-col gap-2.5 mt-2">
+          <p>Rate product</p>
+          <StarRating rating={5}  />
+
+
+       <textarea
          type="text"
          placeholder="Comment"
-         value={comments}
+         value={comment}
          onChange={(e) => setComments(e.target.value)}
          className='p-1 border border-gray-400 outline-1 outline-gray-400 text-sm w-[90%] md:w-96' 
          required
@@ -76,22 +145,29 @@ const CommentsSection = () => {
         <div className='border-b border-b-gray-300 w-full flex justify-between py-1 px-2'>
           <h3>Customer Feedback</h3>
           <button 
-                 className='flex gap-1 duration-75 font-semibold hover:underline items-center hover:text-blue-400 '>View More <FontAwesomeIcon icon={faChevronRight} /></button>  
+                 className={`flex gap-1 duration-75 font-semibold hover:underline items-center hover:text-blue-400 ${userComments?.length===0?'text-gray-300 hover:text-gray-300':'text-purple-500'}`} disabled={userComments?.length===0}>View More <FontAwesomeIcon icon={faChevronRight} /></button>  
         </div>
         
       <div className="flex flex-col gap-2.5 mt-4">
-        {userComments==null && <p className='text-gray-500 w-full text-center'>No comments: be the first to comment.</p>}
+        {userComments?.length===0 &&<p className='text-gray-500 w-full text-center'>No comments: be the first to comment.</p>}
         
         {userComments &&
         userComments.map((comment) => (
 
-        <div className="flex gap-2.5 p-3 " key={comment._id}>
-          <div className="p-1 w-12 h-12 rounded-full flex justify-center items-center bg-gray-400 text-white">   
+        <div className="flex flex-col gap-2.5 p-3 " key={comment._id}>
+          
+          <div className='flex gap-2.5'>
+            <StarCount reviewValue={comment.productRating} />
+          </div>
+    <div className='flex gap-2.5'>
+    <div className="p-1 w-12 h-12 rounded-full flex justify-center items-center bg-gray-400 text-white">   
            <FontAwesomeIcon icon={faUser} className='' />
           </div>
           <div className="p-1 w-3/4 text-sm">
             <p>{comment.comment}</p>
           </div>
+    </div>
+          
        </div>
         ))
         }

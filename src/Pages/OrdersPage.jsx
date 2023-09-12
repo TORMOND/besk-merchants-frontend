@@ -15,7 +15,7 @@ const [data, setData] = useState(null);
     const[error, setError] = useState(null);
 
     useEffect(()=>{
-        fetch(`${backend}/payment/order/success/${id}`)
+        fetch(`${backend}/getSelectedPayments/order/${id}`)
         .then((res)=>{
          if(!res.ok){
             throw Error('Could not fetch the data ');

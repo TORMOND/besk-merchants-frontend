@@ -4,7 +4,7 @@ import { useLogout } from '../Hooks/useLogout';
 
 
 import { NavBar, Products, Footer, PopUps, Brands, HeroSection, Categories, HeroMobile}from '../components';
-import Producst2 from '../components/Products2';
+
 import Modal from '../components/Modal';
 
 const Home = () => {     
@@ -22,8 +22,10 @@ const Home = () => {
 
   
 useEffect(()=>{
-  
-  fetch('https://api.exchangerate-api.com/v4/latest/USD')
+  const fetchOptions = {
+    mode: 'no-cors',
+  };
+  fetch('https://api.exchangerate-api.com/v4/latest/USD',fetchOptions)
   .then(response =>{
       return response.json();
   }).then(data =>{
@@ -103,33 +105,11 @@ const [search, setSearch] = useState('')
 
 <HeroSection />
 
-{/* <div className='mt-10 lg:mt-2 grid grid-cols-2 md:grid-cols-4 gap-2.5 bg-white p-4'>
-<div className='text-align p-2 bg-purple-500 md:bg-white text-white md:text-black border-0 md:border-r md:border-r-gray-400 rounded-md'>
-  <h3>Original Products</h3>
-  <p className='hidden lg:flex'>We offer products of the best quality </p>
-  <p className='hidden lg:flex'>Reach out to us for personal or customized requests</p>
-</div>
-<div className='text-align p-2 bg-purple-500  md:bg-white  text-white md:text-black border-0 md:border-r md:border-r-gray-400 rounded-md'>
-  <h3>Dedicated to our customers</h3>
-  <p className='hidden lg:flex'>We arre dedicated to serving our customer needs</p>
-  <p className='hidden lg:flex'>Reach out to us for personal or customized requests</p>
-</div>
-<div className='text-align p-2 bg-purple-500  md:bg-white  text-white md:text-black border-0 md:border-r md:border-r-gray-400 rounded-md '>
-  <h3>Want an unvailable Product contact us</h3>
-  <p className='hidden lg:flex'>Contact Us & we'll find your product & notify you</p>
-
-</div>
-<div className='text-align p-2 bg-purple-500  md:bg-white  text-white md:text-black border-0 md:border-r md:border-r-gray-400 rounded-md '>
-  <h3>Fast & Worldwide Shipment</h3>
-  <p className='hidden lg:flex'>We deliver the products to your location anywhere in the world</p>
-</div>
-</div> */}
-
 <Categories />
 
 <HeroMobile />
-<Producst2 />
-{/* <Products /> */}
+<Products />
+
 
 <Footer
  generateForm={handleContacts}

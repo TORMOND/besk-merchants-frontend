@@ -8,14 +8,14 @@ export const useLogin = ()=>{
     const { dispatch } = useAuthContext();
     const navigate = useNavigate()
 
-    const login = async (email, password, firstName, secondName)=>{
+    const login = async (email, password)=>{
         setError(null)
         setIsLoading(true)
 
         const response = await fetch(`${backend}/user/Login`, {
             method: 'POST',
             headers:{'Content-Type':'application/json'},
-            body: JSON.stringify({email, password, firstName, secondName})
+            body: JSON.stringify({email, password})
         })
 
         const json = await response.json()

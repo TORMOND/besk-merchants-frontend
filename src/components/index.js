@@ -7,11 +7,11 @@ import Modal from './Modal';
 import HeroSection from './HeroSection';
 import Categories from './Categories';
 import MpesaModal from './MpesaModal'
-import Carousel from './carousel/Carousel';
 import HeroMobile from './HeroMobile';
 import Cancel from "./Cancel";
 import Success from './Success';
-
+import Carousel from './carousel/Carousel';
+import EditProfile from './EditProfile';
 
 export {
     Brands,
@@ -26,5 +26,6 @@ export {
     Carousel,
     HeroMobile,
     Cancel,
-    Success
+    Success,
+    EditProfile
 }

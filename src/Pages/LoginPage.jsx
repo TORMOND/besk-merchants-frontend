@@ -2,6 +2,10 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import {useLogin} from '../Hooks/useLogin'
+// FontAwesome
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+
 
 const LoginPage = () => {
   const navigate = useNavigate()
@@ -20,6 +24,33 @@ const LoginPage = () => {
     const forgotPassword = ()=>{
 
     }
+    const PasswordInput = ({
+      value,
+      onChange,
+      onTogglePassword,
+    }) => {
+      const [passwordVisible, setPasswordVisible] = useState(false);
+    
+      const handleTogglePassword = () => {
+        setPasswordVisible(!passwordVisible);
+      };
+    
+      return (
+        <div className='flex gap-2'>
+          <input
+            type={passwordVisible ? "text" : "password"}
+            value={password}
+            onChange={(e)=> setPassword(e.target.value)}
+         className='w-60 outline-1 outline-purple-500 py-2.5 px-4 rounded-sm border-gray-100' 
+
+          />
+          <button onClick={handleTogglePassword} className='text-gray-600'>
+            {passwordVisible ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}
+          </button>
+        </div>
+      );
+    };
+
     return ( 
         <>
         <div className="h-screen w-screen flex p-2.5 m-auto">
@@ -41,14 +72,18 @@ const LoginPage = () => {
          className='w-60 outline-1 outline-purple-500 py-2.5 px-4 rounded-sm border-gray-100' 
 
          />
-        <input
-         type='password'
+         <PasswordInput />
+        {/* <input
+         type={passwordVisible ? "text" : "password"}
          value={password}
          placeholder='Password'
          onChange={(e)=> setPassword(e.target.value)}
          className='w-60 outline-1 outline-purple-500 py-2.5 px-4 rounded-sm border-gray-100' 
-
          />
+         <button onClick={handleTogglePassword}>
+        {passwordVisible ? "Hide password" : "Show password"}
+      </button> */}
+
          {error &&  <div className="text-red-600 py-2.5 px-6 box-border bg-[rgb(238, 196, 196)] my-0 mx-auto">
           {error}
           </div>

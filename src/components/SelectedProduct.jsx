@@ -12,11 +12,13 @@ import Cancel from "./Cancel";
 import Success from './Success';
 import { backend } from './data/url';
 import CommentsSection from './CommentsSection';
+import { useAuthContext } from '../Hooks/useAuthContext';
+import Advertisements from './Advertisements';
 
 const SelectedProduct = () => {
   const id = localStorage.getItem('id');
   const KES = localStorage.getItem('USD_KSH');
-
+  const {user} = useAuthContext();
   const [canceled, setIsCanceled] = useState(false)
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -34,7 +36,20 @@ const SelectedProduct = () => {
    const [isSuccess,setIsSuccess] = useState(false);
    const orders= useContext(OrdersContext);
    let [quantity, setQuantity] = useState(1);
-   
+   const [signInPrompt, setSignInPrompt] = useState(false);
+   let color;
+   let size;
+   product? color = product.color : color = []
+   product? size = product.size : size = []
+ 
+   const [sizeChoice, setsizeChoice] = useState(size[0]) 
+     const handlsizeChange = (event) => {
+       setsizeChoice(event.target.value);
+       };
+       const [colorChoice, setColorChoice] = useState(color[0]) 
+       const handlcolorChange = (event) => {
+         setColorChoice(event.target.value);
+         };
    const incrementQuantity=()=>{
     setQuantity(quantity+1)
    }
@@ -42,12 +57,17 @@ const SelectedProduct = () => {
     setQuantity(quantity-1)
    }
  const makePayment = (product)=>{
+  if(!user) {
+    setSignInPrompt(true)
+  }
   const body ={
     id:product.stripeId,
     prod_id:id,
     quantity:quantity,
     price:product.price,
-    name:product.title
+    name:product.title,
+    colorChoice,
+    sizeChoice
   }
   const headers ={
     "Content-Type": "application/json"
@@ -86,8 +106,10 @@ const SelectedProduct = () => {
   const toggleCancel=()=>{
     setIsCanceled(false);
   }
+  const proceedToPay=()=>{
+    makePayment()
+  }
 
-   
     return ( 
        <div>
  {mpesaModal && product &&
@@ -107,7 +129,9 @@ const SelectedProduct = () => {
       toggleCancel={toggleCancel}
        />
       }
+
      <div className="min-h-[80vh] flex flex-col">
+     <Advertisements />
 {isPending &&
  <div className='w-full box-border'>
         <div className="loading-selected-product flex flex-col lg:flex-row ">
@@ -191,33 +215,51 @@ const SelectedProduct = () => {
                   {/* <p>123</p> */}
                   </div>
 
-{/* {product.color &&
+
 <ul className='my-2'>
   <li className='flex gap-2'>
     <p className=''>Color: </p>
-    color.map((color)=> (
-      <button className=''key={color}>
-      {color}
-    </button>
+   
+   {product.color.map((color) => (
+     <label key={color}>
+     <input
+      type="radio" 
+      name="radio"
+      value={color}
+      checked={colorChoice === color}
+      onChange={handlcolorChange}
+      />
+     <span>{color}</span>
+   </label>
     ))
-    
+   }
     
     </li>
 </ul>
-} */}
 
-{product.size &&
+
 <ul className='my-2'>
   <li className='flex gap-2'>
-    <p className=''>Size: </p>
-    <button className=''>
-      {product.size}
-    </button>
+    <p className=''>Sizes: </p>
+   
+   {product.size.map((size) => (
+    <label key={size}>
+			<input
+       type="radio" 
+       name="size"
+       value={size}
+       checked={sizeChoice === size}
+       onChange={handlsizeChange}
+       />
+			<span>{size}</span>
+		</label>
+    ))
+   }
     
     </li>
 </ul>
-}
 
+<p>Made in: {product.make}</p>
 <div className="details">
     <h3>About this item</h3>
     <ul className='specs'>
@@ -233,29 +275,50 @@ const SelectedProduct = () => {
  
 
 <div className="flex flex-col gap-5 py-2.5 px-4 ">
-<div className="flex gap-2 item-center">
-            <h3>Quantity:</h3>
-          <button disabled={quantity===1000} onClick={incrementQuantity} className="p-2 border w-10">+</button>
-          <div className="text-lg">{quantity}</div>
-          <button onClick={decrementQuantity} disabled={quantity===1} className="p-2 border w-10">-</button>
-
+<div className="flex gap-2 item-center border border-gray-400 rounded-sm max-w-fit">
+          <button onClick={decrementQuantity} disabled={quantity===1} className="p-2 border-0 w-10 hover:text-purple-500 cursor-pointer">-</button>
+          <div className="text-lg  my-auto">{quantity}</div>       
+          <button disabled={quantity===1000} onClick={incrementQuantity} className="p-2 border-0 w-10 hover:text-purple-500 cursor-pointer">+</button>
           </div>
  
    <button onClick={()=>cart.addOneToCart(product)} 
-   className='before:absolute before:-ml-12 before:transition-[width] before:top-0 before:w-0 before:h-full before:bg-purple-500 before:skew-x-45 before:z-[-1] before:duration-1000  overflow-hidden relative    cursor-pointer p-2 flex justify-center w-full rounded-sm  duration-1000 border-0 transition-all  text-purple-500 outline outline-offset-2 outline-purple-500 box-border hover:text-white hover:scale-110 hover:shadow-lg hover:shadow-purple-400  hover:before:w-80 '
+   className='before:absolute before:-ml-12 before:transition-[width] before:top-0 before:w-0 before:h-full before:bg-purple-500 before:skew-x-45 before:z-[-1] before:duration-1000  overflow-hidden relative    cursor-pointer p-2 flex justify-center max-w-[200px] rounded-sm  duration-1000 border-0 transition-all  text-purple-500 outline outline-offset-2 outline-purple-500 box-border hover:text-white hover:scale-110 hover:shadow-lg hover:shadow-purple-400  hover:before:w-80 '
    >
       <FontAwesomeIcon icon={faCartShopping}  className="shoppingCart" />Add to Cart</button>
   <button onClick={()=>makePayment(product)} 
-   className='before:absolute before:-ml-12 before:transition-[width] before:top-0 before:w-0 before:h-full before:bg-purple-500 before:skew-x-45 before:z-[-1] before:duration-1000  overflow-hidden relative    cursor-pointer p-2 flex justify-center w-full rounded-sm  duration-1000 border-0 transition-all  text-purple-500 outline outline-offset-2 outline-purple-500 box-border hover:text-white hover:scale-110 hover:shadow-lg hover:shadow-purple-400  hover:before:w-80 '
+   className='before:absolute before:-ml-12 before:transition-[width] before:top-0 before:w-0 before:h-full before:bg-purple-500 before:skew-x-45 before:z-[-1] before:duration-1000  overflow-hidden relative    cursor-pointer p-2 flex justify-center  max-w-[200px] rounded-sm  duration-1000 border-0 transition-all  text-purple-500 outline outline-offset-2 outline-purple-500 box-border hover:text-white hover:scale-110 hover:shadow-lg hover:shadow-purple-400  hover:before:w-80 '
    >
     Buy Now
    </button>
 <div className="">
   <button onClick={mpesaPay} 
-   className='before:absolute before:-ml-12 before:transition-[width] before:top-0 before:w-0 before:h-full before:bg-green-500 before:skew-x-45 before:z-[-1] before:duration-1000  overflow-hidden relative    cursor-pointer p-2 flex justify-center w-full rounded-sm  duration-1000 border-0 transition-all  text-green-500 outline outline-offset-2 outline-green-500 box-border hover:text-white hover:scale-110 hover:shadow-lg hover:shadow-green-400  hover:before:w-80 '
+   className='before:absolute before:-ml-12 before:transition-[width] before:top-0 before:w-0 before:h-full before:bg-green-500 before:skew-x-45 before:z-[-1] before:duration-1000  overflow-hidden relative    cursor-pointer p-2 flex justify-center  w-[200px] rounded-sm  duration-1000 border-0 transition-all  text-green-500 outline outline-offset-2 outline-green-500 box-border hover:text-white hover:scale-110 hover:shadow-lg hover:shadow-green-400  hover:before:w-80 '
    >
     Pay with Mpesa
    </button>
+   {signInPrompt &&
+        <div className='fixed z-20 ml-[1%] mt-[10%] bg-white shadow-lg shadow-purple-500 rounded-md max-w-2xl p-4'>
+          <div className='flex flex-col gap-2.5'>
+            <h3 className=''>Sign In to Proceed</h3>
+          <p className=''>We recommend for you to sign in in order for us to save your orders for you to review them later.
+          You can choose to skip and we will still complete your order.
+          </p>
+
+          </div>
+          <div className='mt-4 flex justify-start gap-5'>
+            <button  className='before:absolute before:-ml-12 before:transition-[width] before:top-0 before:w-0 before:h-full before:bg-purple-500 before:skew-x-45 before:z-[-1] before:duration-1000 
+      overflow-hidden relative mt-5  cursor-pointer p-2 flex justify-center w-[45%] lg:w-[40%] rounded-sm 
+       duration-1000 border-0 transition-all  text-purple-500 outline outline-offset-2 outline-purple-500
+        box-border hover:text-white hover:scale-110 hover:shadow-lg hover:shadow-purple-400  hover:before:w-80 '>Sign In</button>
+            <button
+            onClick={proceedToPay}
+              className='before:absolute before:-ml-12  before:transition-[width] before:top-0 before:w-0 before:h-full before:bg-purple-500 before:skew-x-45 before:z-[-1] before:duration-1000 
+      overflow-hidden relative mt-5  cursor-pointer p-2 flex justify-center w-[45%] lg:w-[40%] rounded-sm 
+       duration-1000 border-0 transition-all  text-purple-500 outline outline-offset-2 outline-purple-500
+        box-border hover:text-white hover:scale-110 hover:shadow-lg hover:shadow-purple-400  hover:before:w-80 '>Skip & Proceed</button>
+          </div>
+        </div>
+      }
 </div>
 
     
@@ -266,7 +329,8 @@ const SelectedProduct = () => {
   </div>
 
 }    </div>
-<CommentsSection />
+{product && <CommentsSection />}
+
         </div>
      );
 }
