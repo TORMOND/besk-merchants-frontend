@@ -28,7 +28,7 @@ const ForgotPassword = () => {
         alert('Error in handling forgot password')
         setError(true)
       }
-      
+      setLoading(false)
       // Handle response, e.g., show success message and move to next step
       setStep('reset');
     };
@@ -61,7 +61,7 @@ const ForgotPassword = () => {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className='p-2 outline-1 outline-gray-400 text-sm w-[90%] md:w-96' 
+            className='p-2 border border-gray-400 outline-1 outline-purple-400 text-sm w-[90%] md:w-96' 
             required
           />
            {error && <div className="text-red-500 font-bold ">Error:Unable to send email, try again</div>}
@@ -90,7 +90,7 @@ const ForgotPassword = () => {
             placeholder="Reset Token"
             value={resetToken}
             onChange={(e) => setResetToken(e.target.value)}
-            className='p-2 outline-1 outline-gray-400 text-sm w-[90%] md:w-96' 
+            className='p-2  border border-gray-400 outline-1 outline-purple-500 text-sm w-[90%] md:w-96' 
             required
           />
           <input
@@ -98,13 +98,12 @@ const ForgotPassword = () => {
             placeholder="New Password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
-            className='p-2 outline-1 outline-gray-400 text-sm w-[90%] md:w-96' 
+            className='p-2  border border-gray-400 outline-1 outline-purple-500 text-sm w-[90%] md:w-96' 
             required
           />
            {error && <div className="text-red-500 font-bold ">Error:Unable to reset password try again</div>}
           <button className='bg-purple-500 text-white mt-2 p-2 rounded-md hover:shadow-md shadow-purple-500'  
           onClick={handleResetPassword}>
-            Reset Password
             {!loading? ' Reset Password':
             <div>
  <svg aria-hidden="true" role="status" className="inline w-4 h-4 mr-3 animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">

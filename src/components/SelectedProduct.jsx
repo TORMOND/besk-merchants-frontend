@@ -19,6 +19,10 @@ const SelectedProduct = () => {
   const id = localStorage.getItem('id');
   const KES = localStorage.getItem('USD_KSH');
   const {user} = useAuthContext();
+  // console.log(user.user)
+  // user==null? console.log('No USER'):console.log(user.user)
+  const userId = user? user.user._id: null
+  console.log(userId)
   const [canceled, setIsCanceled] = useState(false)
   useEffect(() => {
     if (typeof window === 'undefined') {
@@ -60,15 +64,18 @@ const SelectedProduct = () => {
   if(!user) {
     setSignInPrompt(true)
   }
+  localStorage.setItem('session_id', []);
   const body ={
     id:product.stripeId,
     prod_id:id,
     quantity:quantity,
     price:product.price,
     name:product.title,
-    colorChoice,
-    sizeChoice
+    colorChoice:colorChoice?colorChoice:'',
+    sizeChoice:sizeChoice?sizeChoice:'',
+    userId:userId,
   }
+  console.log(body)
   const headers ={
     "Content-Type": "application/json"
   }
@@ -81,7 +88,8 @@ const SelectedProduct = () => {
 }).then((response) => {
     if(response.url) {
         window.location.assign(response.url); // Forwarding user to Stripe
-        orders.setorders(response.session_id)
+        // orders.setorders(response.session_id)
+        localStorage.setItem('session_id', response.session_id);       
     }
   
 }).catch(error=>{
@@ -297,7 +305,7 @@ const SelectedProduct = () => {
     Pay with Mpesa
    </button>
    {signInPrompt &&
-        <div className='fixed z-20 ml-[1%] mt-[10%] bg-white shadow-lg shadow-purple-500 rounded-md max-w-2xl p-4'>
+        <div className='fixed z-20 lg:-ml-[10%] lg:-mt-[10%] bg-white shadow-lg shadow-purple-500 rounded-md max-w-2xl p-4'>
           <div className='flex flex-col gap-2.5'>
             <h3 className=''>Sign In to Proceed</h3>
           <p className=''>We recommend for you to sign in in order for us to save your orders for you to review them later.

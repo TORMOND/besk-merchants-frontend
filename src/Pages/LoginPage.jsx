@@ -22,7 +22,7 @@ const LoginPage = () => {
     await login(email, password)
     }
     const forgotPassword = ()=>{
-
+      navigate('/ForgotPassword')
     }
     const PasswordInput = ({
       value,
@@ -36,12 +36,12 @@ const LoginPage = () => {
       };
     
       return (
-        <div className='flex gap-2'>
+        <div className='flex gap-2  outline-1 outline-purple-500 py-2.5 px-4 rounded-sm border border-gray-400'>
           <input
             type={passwordVisible ? "text" : "password"}
             value={password}
             onChange={(e)=> setPassword(e.target.value)}
-         className='w-60 outline-1 outline-purple-500 py-2.5 px-4 rounded-sm border-gray-100' 
+         className='outline-0 ' 
 
           />
           <button onClick={handleTogglePassword} className='text-gray-600'>
@@ -69,20 +69,9 @@ const LoginPage = () => {
          value={email}
          placeholder="Email"
          onChange={(e)=> setEmail(e.target.value)}
-         className='w-60 outline-1 outline-purple-500 py-2.5 px-4 rounded-sm border-gray-100' 
-
+         className='w-60 border border-gray-400 outline-1 outline-purple-500 py-2.5 px-4 rounded-sm' 
          />
          <PasswordInput />
-        {/* <input
-         type={passwordVisible ? "text" : "password"}
-         value={password}
-         placeholder='Password'
-         onChange={(e)=> setPassword(e.target.value)}
-         className='w-60 outline-1 outline-purple-500 py-2.5 px-4 rounded-sm border-gray-100' 
-         />
-         <button onClick={handleTogglePassword}>
-        {passwordVisible ? "Hide password" : "Show password"}
-      </button> */}
 
          {error &&  <div className="text-red-600 py-2.5 px-6 box-border bg-[rgb(238, 196, 196)] my-0 mx-auto">
           {error}

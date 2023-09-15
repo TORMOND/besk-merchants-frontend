@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect,  useContext} from 'react';
-import { OrdersContext } from "../Context/OrdersContext";
+// import { OrdersContext } from "../Context/OrdersContext";
 
 // FontAwesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -42,8 +42,8 @@ const { status } = useParams();
 
 console.log(status)
 
-const orders= useContext(OrdersContext);
-const id = orders.items.length-1;
+// const orders= useContext(OrdersContext);
+const id = localStorage.getItem('session_id');
 
     const [data, setData] = useState(null);
     const [isPending, setPending] = useState(true);
@@ -57,7 +57,8 @@ const id = orders.items.length-1;
          }
           return res.json();
         }).then(data=> {    
-          setData(data);
+          setData(data.session);
+          console.log(data.session);
           setPending(false)
         })
         .catch(error=> {
@@ -82,7 +83,7 @@ console.log(data)
              variants= {boxVariants}
              initial='hidden'
              animate='visible'
-             className={`rounded-lg flex flex-col p-2 bg-gray-50 w-[80%]  min-h-2/5 lg:w-[60%] `}
+             className={`rounded-lg flex flex-col p-2 bg-gray-50 w-[80%] mt-28 lg:mt-5 max-h-1/2 min-h-2/5 lg:w-[60%] `}
              >
                 <div className='w-full p-2 flex gap-2.5 justify-end items-center border-b border-b-gray-300'>
                 <div  className=' text-start px-2 flex gap-1.5 items-center w-5/6'>                   
@@ -93,6 +94,10 @@ console.log(data)
                 </div>
                 <div className='h-[30vh] flex items-center justify-center'>
                   <h3>Purchases Successful:We will email you when your order will be sent.</h3>
+                  {data &&
+                  <div>
+
+                    </div>}
                 </div>
             </motion.div>
         </motion.div>

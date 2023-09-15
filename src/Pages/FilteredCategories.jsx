@@ -1,5 +1,5 @@
  import useFetch from '../UseFetch';
- import {useState} from 'react';
+ import {useState, useEffect} from 'react';
 
  import { NavBar, Footer, Modal  }from '../components';
 
@@ -8,9 +8,11 @@ import LoadingSection from '../components/LoadingSection';
 import { backend } from "../components/data/url";
 
 const FilteredCategoryPage = () => { 
+   useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
    const category =localStorage.getItem('categorySelected')
     const { data:products, isPending, error } = useFetch(`${backend}/products/getFilteredProducts/${category}`);
-  
      const navigate = useNavigate();
      const selectProduct = (event, id)=>{
       localStorage.setItem('id', id)
@@ -20,8 +22,20 @@ const FilteredCategoryPage = () => {
   const toggleSearch =()=>{
     setIsModal(!isModal)
   }
-     
-    return ( 
+
+  let brands = [] 
+const findCategories =(products)=>{
+
+for(let i =0; i< products.length; i++){
+   brands.push(products[i].brands)
+}
+const y = Array.from(new Set(brands))
+return y
+}
+
+const companyBrands = products? findCategories(products): [] 
+
+return ( 
       <div className="relative bg-gray-300 box-border">
          
     {isModal &&
@@ -39,7 +53,7 @@ const FilteredCategoryPage = () => {
          <div className="">
             <select>
                <option value="">
-                  Price:(lowest- highest)
+                  Price:(lowest - highest)
                </option>
                <option value="">
                   Price:(highest - lowest)
@@ -48,7 +62,7 @@ const FilteredCategoryPage = () => {
                </option>
             </select>
          </div>
-         <h2 className="text-2xl py-3">Featured Products</h2>
+         <h2 className="text-2xl py-3 mt-2">Featured Products</h2>
                {isPending &&              
          <LoadingSection />      
                   }

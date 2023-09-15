@@ -24,7 +24,6 @@ const Location = () => {
         return res.json()
     })
     .then(location=>{
-      console.log(location)
      setLocations(location)
      setisPending(false)
      setSelectedCounty(location[0].county)
@@ -110,11 +109,16 @@ useEffect(()=>{
    </div>
   
 
-    <div className="flex gap-2 text-sm">
-<FontAwesomeIcon icon={faTruck} size="xl" />
-<p>Delivery to  {selectedOption} is Ksh  {price} & Occurs within the next 48hrs After Purchase</p>
-
+   
+{
+  price &&
+  <div className="flex gap-2 text-sm">
+  <FontAwesomeIcon icon={faTruck} size="xl" />
+<div className='flex gap-1'>Delivery to  <h4>{selectedOption}</h4>  is<h4> Ksh {price}</h4> & Occurs within the next 48hrs After Purchase</div>
     </div>
+}
+
+
 
     </div>
     </div>  

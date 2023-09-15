@@ -1,21 +1,19 @@
-import { useState, useEffect,  useContext} from 'react';
-import { OrdersContext } from "../Context/OrdersContext";
+import { useState, useEffect} from 'react';
 import { backend } from "../components/data/url";
-import { useAuthContext } from '../Hooks/useAuthContext';
+// import { useAuthContext } from '../Hooks/useAuthContext';
 
 
 const OrdersPage = () => {
-const {user} = useAuthContext();
-const orders= useContext(OrdersContext);
-const id = orders.items.length-1;
+// const {user} = useAuthContext();
+// console.log(user.user._id)
+let id = '64ecbf2b6a657955a6e86500' ;
 
 const [data, setData] = useState(null);
-
-    const [isPending, setPending] = useState(true);
-    const[error, setError] = useState(null);
+const [isPending, setPending] = useState(true);
+const[error, setError] = useState(null);
 
     useEffect(()=>{
-        fetch(`${backend}/getSelectedPayments/order/${id}`)
+        fetch(`${backend}/payInfo/getUserPayments/${id}`)
         .then((res)=>{
          if(!res.ok){
             throw Error('Could not fetch the data ');

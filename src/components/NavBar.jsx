@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../Hooks/useAuthContext';
 import { useLogout } from '../Hooks/useLogout';
 
-// const { user, login, logout } = useContext(UserContext);
 
 // FontAwesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -83,7 +82,6 @@ const handleClickOutside = (event) => {
           </button>
             <button className="cursor-pointer p-1 duration-75 bg-purple-500 rounded-md  outline-1 outline-purple-500 flex gap-1 items-center px-4 py-2 text-white"
            onClick={ordersPage}>
-          {/* <FontAwesomeIcon icon={faUser} className='my-0 mx-1.5' /> */}
             <span className="text-xs">Orders</span>
           </button>
           </div>

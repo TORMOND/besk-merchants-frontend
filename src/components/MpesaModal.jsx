@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-
+import { useAuthContext } from '../Hooks/useAuthContext';
+import { useNavigate } from 'react-router-dom';
 
 // FontAwesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -38,12 +39,13 @@ const boxVariants={
         }
     }
 }
-
+const {user} = useAuthContext();
 const [phone, setCustomerPhone] = useState(''); 
 const [loading, setLoading]= useState(false);
 const [error, setError]= useState(false)
 const [success, setSuccess] = useState(false);
 const location = localStorage.getItem('selectedLocation');
+const navigate = useNavigate();
 let newPrice = localStorage.getItem('location-Price');
 console.log(newPrice)
 // const [itemIds, setItemIds] = useState([])
@@ -74,12 +76,23 @@ const itemTitles = items? findProducts(items): []
 
 
 const makepayment =async()=>{
+  if(!user) return  navigate('LoginPage')
   setLoading(true)
 console.log(itemIds)
   const response = await fetch(`${backend}/mpesaPayment/stk/`, {
     method: 'POST',
     headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({phone, itemIds, items, itemTitles, KES, amount:1, location, newPrice})
+    body: JSON.stringify({
+      phone, 
+      itemIds, 
+      items, 
+      itemTitles, 
+      KES, 
+      amount:1, 
+      location, 
+      newPrice, 
+      userId:user.user._id
+    })
 })
 
 // const json = await response.json()

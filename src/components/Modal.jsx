@@ -61,20 +61,19 @@ const [searchCustomerDetails, setSearchCustomerDetails] = useState('');
          variants= {containerVariants}
          initial='hidden'
          animate='visible'
-         className='w-screen bg-[#00000071] fixed z-20 h-screen flex justify-center lg:items-center box-border'
+         className='w-screen bg-[#00000071] fixed z-30 h-screen flex justify-center  box-border'
          >
             <motion.div
              variants= {boxVariants}
              initial='hidden'
              animate='visible'
-             className={`rounded-lg flex flex-col p-2 bg-gray-50 w-[80%]  min-h-2/5 lg:w-[60%] ${searchCustomerDetails==''? 'max-w-24':'max-w-[80vh'}`}
+             className={`rounded-lg flex flex-col p-2 bg-gray-50 w-[80%] -mt-12  min-h-2/5 lg:w-[60%] ${searchCustomerDetails==''? 'max-h-14 overflow-hidden': 'h-fit max-h-[80vh'}`}
              >
                 <div className='w-full p-2 flex gap-2.5 justify-between items-center border-b border-b-gray-300'>
                 <div  className=' text-start px-2 flex gap-1.5 items-center w-5/6'>
                 <FontAwesomeIcon icon={faMagnifyingGlass}  className="" />
                     <input 
                     type='text' 
-
                     className='border-0 w-full py-1 px-2 bg-gray-50 focus:outline-0'
                     value={searchCustomerDetails}
                     placeholder='search'
@@ -85,10 +84,10 @@ const [searchCustomerDetails, setSearchCustomerDetails] = useState('');
                     <FontAwesomeIcon icon={faXmark} size="lg" />
                     </button>
                 </div>
-                <div className='max-h-[80vh] overflow-y-scroll'>
+                <div className=' overflow-y-scroll'>
 
-                {searchCustomerDetails && purchasesToDisplay.map((purchase)=>(
-                <div className="flex gap-2.5 py-1.5 px-2.5 duration-75 cursor-pointer hover:shadow-md" key={purchase._id} 
+                {searchCustomerDetails? purchasesToDisplay.map((purchase)=>(
+                <div className="flex gap-2.5 py-1.5 px-2.5 duration-75 cursor-pointer hover:shadow-md max-h-[80vh]" key={purchase._id} 
                 onClick={event=>selectProduct(event, purchase._id)}>
                 
                     <div className="customer-name">{purchase.title}</div>
@@ -97,9 +96,13 @@ const [searchCustomerDetails, setSearchCustomerDetails] = useState('');
                     </div>
                    
                 </div>
-                         ))}
+                         )):<div className='max-h-10'>
+
+                            </div>}
+
+
                          {purchasesToDisplay &&
-                         <h2 className='m-auto text-gray-400'>
+                         <h2 className='m-auto text-gray-400 bg-blue-400'>
                            
                             {purchasesToDisplay===undefined &&
                             <div>
