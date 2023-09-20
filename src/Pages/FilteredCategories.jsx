@@ -87,7 +87,7 @@ return (
          toggleSearch={toggleSearch}
         />
 
-        <div className="p-5 mt-20  flex gap-5">
+        <div className="p-5 mt-20  flex flex-col lg:flex-row gap-5">
          <div className="mt-5 bg-white py-2 px-5 rounded-md h-fit  w-1/4">
          <h4 className="text-xl py-3 mt-2">BRANDS</h4>
          {companyBrands && companyBrands.map(brand=>(

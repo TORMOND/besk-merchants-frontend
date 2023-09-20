@@ -88,7 +88,7 @@ const [searchCustomerDetails, setSearchCustomerDetails] = useState('');
                     type='text' 
                     className='border-0 w-full py-1 px-2 bg-gray-50 focus:outline-0'
                     value={searchCustomerDetails}
-                    placeholder='search'
+                    placeholder='search products, brands and categories'
                     onKeyPress={handleKeyPress}
                     onChange={e=>setSearchCustomerDetails(e.target.value.toLocaleLowerCase())}
                     />
