@@ -12,6 +12,7 @@ import Cancel from "./Cancel";
 import Success from './Success';
 import Carousel from './carousel/Carousel';
 import EditProfile from './EditProfile';
+import SimilarProducts from './SimilarProducts';
 
 export {
     Brands,
@@ -27,5 +28,6 @@ export {
     HeroMobile,
     Cancel,
     Success,
-    EditProfile
+    EditProfile,
+    SimilarProducts
 }

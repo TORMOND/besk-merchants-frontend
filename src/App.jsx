@@ -11,14 +11,19 @@ import ForgotPassword from './Pages/ForgotPassword';
 import Contacts from './Pages/Contacts';
 import OrdersPage from './Pages/OrdersPage';
 import ProfilePage from './Pages/ProfilePage';
-
+import ReturnPolicy from './Pages/ReturnPolicy';
+import About from './Pages/About';
+import TermsConditions from './Pages/TermsConditions';
+import Catalog from './Pages/Catalog';
+import FrequentQuestions from './Pages/FrequentQuestions';
+import SearchCatalog from './Pages/SearchCatalog';
 
 function App() {
 
   return (
     <div className="App">
 <Router>
-  
+   
   <Routes>
     <Route path='/' element={<Home />}></Route>
     <Route path='/LoginPage' element={<LoginPage />}></Route>
@@ -26,6 +31,12 @@ function App() {
     <Route path='/Orders' element={<OrdersPage />} ></Route>
     <Route path='/ForgotPassword' element={<ForgotPassword />} ></Route>
     <Route path='/cart' element={<Cart/>}></Route>
+    <Route path='/FrequentQuestions' element={<FrequentQuestions/>}></Route>
+    <Route path='/catalog/:categ/:searchTerm' element={<Catalog/>}></Route>
+    <Route path='/search-catalog/:searchTerm' element={<SearchCatalog/>}></Route>
+    <Route path='/return-policy' element={<ReturnPolicy />}></Route>
+    <Route path='/About' element={<About />}></Route>
+    <Route path='/Terms & Conditions' element={<TermsConditions />}></Route>
     <Route path='/Profile' element={<ProfilePage />}></Route>
     <Route path='/contactUs' element={<Contacts/>}></Route>
     <Route path='/ProductPage/:id' element={<ProductPage/>}></Route>

@@ -171,13 +171,18 @@
   visibility: visible;
 } */
 
+
 .splide__arrows svg{
   visibility: hidden;
+  width: 200px;
+  height: 200px;
 }
-.splide__arrows :hover svg{
+.splide:hover svg{
   visibility: visible;
 }
-
+.navbar-item:hover .dropdown-list {
+  display: block;
+}
 
 
 

@@ -6,7 +6,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 const StarRating = ({ rating, rateValue }) => {
   const [hoveredStar, setHoveredStar] = useState(0);
-  const [rate, setRate] = useState(0)
+  const [rate, setRate] = useState(1)
 
 
  const stars = [...Array(5)].map((star, index) => {

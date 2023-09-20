@@ -24,7 +24,7 @@ const SignUpPage = () => {
     return ( 
 
         <div className="h-screen flex bg-cover">
-            <div className="bg-purple-500 m-auto overflow-hidden flex justify-center items-center w-4/5 h-4/5">
+            <div className="bg-purple-500 m-auto overflow-hidden flex justify-center items-center lg:w-4/5 h-4/5">
 
      <div className="bg-white my-0 mx-auto rounded-sm py-2.5 px-4">    
 
@@ -36,36 +36,36 @@ const SignUpPage = () => {
             </div>
            
           <form onSubmit={submit} className='flex my-2.5 mx-auto flex-col gap-2.5'>
-            <div className='nameInputs'>
+            <div className='nameInputs flex gap-2'>
                 <input
                  type="text"
                  value={firstName}
                  placeholder='first name'
                  onChange={(e)=> setFirstName(e.target.value)}
-                 className="outline-purple-500 py-2.5 px-4 rounded-sm border-gray-200"
+                 className="lg:w-60 outline-purple-500 py-2.5 px-4 rounded-sm border border-gray-200"
                  />
                 <input
                  type="text"
                  value={secondName}
                  placeholder='sir name'
                  onChange={(e)=> setSecondName(e.target.value)}
-                 className="outline-purple-500 py-2.5 px-4 rounded-sm border-gray-200"
+                 className="lg:w-60 outline-purple-500 py-2.5 px-4 rounded-sm border border-gray-200"
                  />
             </div>
-            <div className='input-credentials'>
+            <div className='input-credentials flex gap-2'>
                 <input
                 type='email'
                 value={email}
                 placeholder='email'
                 onChange={(e)=> setEmail(e.target.value)}
-                className='w-60 outline-1 outline-purple-500 py-2.5 px-4 rounded-sm border-gray-100'
+                className='lg:w-60 outline-1 outline-purple-500 py-2.5 px-4 rounded-sm border border-gray-100'
                />
                 <input
                  type='password'
                  value={password}
                  placeholder='password'
                  onChange={(e)=> setPassword(e.target.value)}
-                 className='w-60 outline-1 outline-purple-500 py-2.5 px-4 rounded-sm border-gray-100'
+                 className='lg:w-60 outline-1 outline-purple-500 py-2.5 px-4 rounded-sm border border-gray-100'
                 />
             </div>
             {error && <div  className="text-red-600 py-2.5 px-6 box-border bg-[rgb(238, 196, 196)] my-0 mx-auto">

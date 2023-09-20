@@ -24,32 +24,12 @@ const LoginPage = () => {
     const forgotPassword = ()=>{
       navigate('/ForgotPassword')
     }
-    const PasswordInput = ({
-      value,
-      onChange,
-      onTogglePassword,
-    }) => {
       const [passwordVisible, setPasswordVisible] = useState(false);
     
       const handleTogglePassword = () => {
         setPasswordVisible(!passwordVisible);
       };
     
-      return (
-        <div className='flex gap-2  outline-1 outline-purple-500 py-2.5 px-4 rounded-sm border border-gray-400'>
-          <input
-            type={passwordVisible ? "text" : "password"}
-            value={password}
-            onChange={(e)=> setPassword(e.target.value)}
-         className='outline-0 ' 
-
-          />
-          <button onClick={handleTogglePassword} className='text-gray-600'>
-            {passwordVisible ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}
-          </button>
-        </div>
-      );
-    };
 
     return ( 
         <>
@@ -71,7 +51,18 @@ const LoginPage = () => {
          onChange={(e)=> setEmail(e.target.value)}
          className='w-60 border border-gray-400 outline-1 outline-purple-500 py-2.5 px-4 rounded-sm' 
          />
-         <PasswordInput />
+          <div className='flex gap-2  outline-1 outline-purple-500 py-2.5 px-4 rounded-sm border border-gray-400'>
+          <input
+            type={passwordVisible ? "text" : "password"}
+            value={password}
+            placeholder="Password"
+            onChange={(e)=> setPassword(e.target.value)}
+            className='outline-0 ' 
+          />
+          <button onClick={handleTogglePassword} className='text-gray-600'>
+            {passwordVisible ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}
+          </button>
+        </div>
 
          {error &&  <div className="text-red-600 py-2.5 px-6 box-border bg-[rgb(238, 196, 196)] my-0 mx-auto">
           {error}

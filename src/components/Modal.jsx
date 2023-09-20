@@ -48,7 +48,19 @@ const [searchCustomerDetails, setSearchCustomerDetails] = useState('');
     const prodContext = useContext(ProductsContext);
     const x = prodContext.items;
     console.log(x);
-
+   const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+          // Call your function or perform an action here
+          handleEnterKeyAction();
+        }
+      };
+    const handleEnterKeyAction = () => {
+        // Replace this with your desired action
+        console.log('Enter key was pressed. Input value:',searchCustomerDetails);
+        if (searchCustomerDetails !==null && searchCustomerDetails !==''){
+            navigate('/search-catalog/' + searchCustomerDetails)
+        }
+      };
     
     const handleSearch = x.filter(purchase=>   
         Object.values(purchase).join('').toLowerCase().trim().includes(searchCustomerDetails)
@@ -77,6 +89,7 @@ const [searchCustomerDetails, setSearchCustomerDetails] = useState('');
                     className='border-0 w-full py-1 px-2 bg-gray-50 focus:outline-0'
                     value={searchCustomerDetails}
                     placeholder='search'
+                    onKeyPress={handleKeyPress}
                     onChange={e=>setSearchCustomerDetails(e.target.value.toLocaleLowerCase())}
                     />
                 </div>
@@ -89,7 +102,10 @@ const [searchCustomerDetails, setSearchCustomerDetails] = useState('');
                 {searchCustomerDetails? purchasesToDisplay.map((purchase)=>(
                 <div className="flex gap-2.5 py-1.5 px-2.5 duration-75 cursor-pointer hover:shadow-md max-h-[80vh]" key={purchase._id} 
                 onClick={event=>selectProduct(event, purchase._id)}>
-                
+                        <div 
+      className="w-10 aspect-square object-contain flex bg-no-repeat">
+      <img src={purchase.img} alt={purchase.img} className='w-full aspect-square m-auto object-contain' />
+   </div> 
                     <div className="customer-name">{purchase.title}</div>
                     <div className="other-purchase-details">
                     <div className="text-gray-400">{purchase.device}</div>

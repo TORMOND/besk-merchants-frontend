@@ -3,7 +3,7 @@ import { useAuthContext } from '../Hooks/useAuthContext';
 
 // FontAwesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faChevronRight, faStar  } from '@fortawesome/free-solid-svg-icons';
+import {faChevronRight, faStar, faComments  } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { backend } from './data/url';
 import { useNavigate } from 'react-router-dom';
@@ -75,11 +75,11 @@ const CommentsSection = () => {
     }
 
     const StarCount = ({ reviewValue }) => {
-      const [rating, setRating] = useState(0);
+      const [rating, setRating] = useState(1);
     
       useEffect(() => {
         // Get the review value from the props.
-        const value = reviewValue || 0;
+        const value = reviewValue || 1;
     
         // Set the initial rating to the review value.
         setRating(value);
@@ -149,8 +149,13 @@ const CommentsSection = () => {
         </div>
         
       <div className="flex flex-col gap-2.5 mt-4">
-        {userComments?.length===0 &&<p className='text-gray-500 w-full text-center'>No comments: be the first to comment.</p>}
-        
+        {userComments?.length===0 &&
+        <div  className='text-gray-500 w-full text-center'>
+          <FontAwesomeIcon icon={faComments} size="xl" />
+            <p>No comments: be the first to comment.</p>
+        </div>
+      
+        }
         {userComments &&
         userComments.map((comment) => (
 

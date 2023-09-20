@@ -18,62 +18,74 @@ const allCategories = [
           {categoryName: "Electronics",
            items: 45,
            id: 1,
-           img: electronics
+           img: electronics,
+           catalog:['Accessories','Tvs','Computers&Accessories','Phones']
           },
           {categoryName: "Solar",
            items: 45,
            id: 2,
-           img:solar
+           img:solar,
+           catalog:['Accessories','Tvs','Computers&Accessories','Phones']
           },
-          {categoryName: "Plumbing",
+          {categoryName: "Plumbing Products",
            items: 45,
            id: 3,
-           img:pipes
+           img:pipes,
+           catalog:['Accessories','Tvs','Computers&Accessories','Phones']
           },
-          {categoryName: "Medical Equipments",
+          {categoryName: "Medical Equipment",
            items: 45,
            id: 4,
-           img:medicalEquipment
+           img:medicalEquipment,
+           catalog:['Accessories','Tvs','Computers&Accessories','Phones']
           },
           {categoryName: "Hardware",
            items: 45,
            id: 5,
-           img:hardware
+           img:hardware,
+           catalog:['Accessories','Tvs','Computers&Accessories','Phones']
           },
           {categoryName: "Building Materials",
            items: 45,
            id: 6,
-           img:buildingmaterials
+           img:buildingmaterials,
+           catalog:['Accessories','Tvs','Computers&Accessories','Phones']
           },
           {categoryName: "furniture",
            items: 45,
            id: 7,
-           img:furniture
+           img:furniture,
+           catalog:['Accessories','Tvs','Computers&Accessories','Phones']
           },
           {categoryName: "Safety",
            items: 45,
            id: 8,
-           img:safetyTools
+           img:safetyTools,
+           catalog:['Accessories','Tvs','Computers&Accessories','Phones']
           },
           {categoryName: "Security",
            items: 45,
            id: 9,
-           img:camera
+           img:camera,
+           catalog:['Accessories','Tvs','Computers&Accessories','Phones']
           },
           {categoryName: "Food",
            items: 45,
            id: 10,
-           img:fertilizers
+           img:fertilizers,
+           catalog:['Accessories','Tvs','Computers&Accessories','Phones']
           },
           {categoryName: "Stationary",
            items: 45,
            id: 11,
-           img:stationary
+           img:stationary,
+           catalog:['Accessories','Tvs','Computers&Accessories','Phones']
           },
           {categoryName: "Clothes",
            items: 45,
            id: 12,
-           img:clothes
+           img:clothes,
+           catalog:['Accessories','Tvs','Computers&Accessories','Phones']
           },
 
 ]

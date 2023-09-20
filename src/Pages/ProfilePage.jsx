@@ -27,7 +27,7 @@ const ProfilePage = () => {
 <EditProfile closeUpdate={closeUpdate} />
 }
       {user &&
-      <div className='mt-20 mb-5 max-w-7xl mx-auto'>
+      <div className='mt-32 mb-5 max-w-7xl mx-auto'>
           <div className='flex gap-4 items-center'>
 
 {user.user.profile==null?

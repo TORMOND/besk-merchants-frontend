@@ -14,6 +14,7 @@ import { backend } from './data/url';
 import CommentsSection from './CommentsSection';
 import { useAuthContext } from '../Hooks/useAuthContext';
 import Advertisements from './Advertisements';
+import SimilarProducts from './SimilarProducts';
 
 const SelectedProduct = () => {
   const id = localStorage.getItem('id');
@@ -102,6 +103,9 @@ const SelectedProduct = () => {
  const cart = useContext(CartContext);
 
  const [mpesaModal, setMpesaModal] = useState(false)
+
+ let category = product? product.device : null
+ console.log(category)
  const mpesaPay=()=>{
   setMpesaModal(true)
   }
@@ -339,6 +343,10 @@ const SelectedProduct = () => {
 }    </div>
 {product && <CommentsSection />}
 
+{product &&<SimilarProducts  
+category={category}
+/>
+}
         </div>
      );
 }

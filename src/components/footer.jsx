@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 // FontAwesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,8 +11,10 @@ const Footer = () => {
     const generateForm=()=>{
         navigate('/contactUs');
     }
+
     return ( 
-        <div className="w-full bg-white box-border mt-2.5  flex flex-col">
+        <div className="w-full bg-white box-border mt-2.5  flex flex-col relative">
+           
              <div className='w-full text-center p-4 border-b border-b-gray-300 flex flex-col justify-center'>
   <h2>Can`t Find What your Looking For ?</h2>
   <p>Contact us & we can find what your looking for & send you a notification</p>
@@ -51,21 +53,22 @@ const Footer = () => {
              </div>
              <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 ">
                 <div>
-                    <h3>COMPANY</h3>
-                    <div>
-                        <ul>
-                            <li>About Us</li>
-                            <li>Contact Us</li>
-                            <li>Customers</li>
-                            <li>Leadership</li>
-                        </ul>
-                    </div>
+                    
                 </div>
                 <div>
                 <h3>COMPANY</h3>
                         <ul>
-                            <li>Terms & Conditions</li>
-                            <li>Return Policy</li>
+                            <li>
+                                
+                            <Link to="/About" className='hover:underline'>About Us</Link>
+                                </li>
+                            <li>
+                            <Link to="/Terms & Conditions" className='hover:underline'>Terms & Conditions</Link>
+                                </li>
+                            <li>
+                            <Link to="/return-policy" className='hover:underline'>Return Policy</Link>
+                                </li>
+                            <li>Mwiki Kasarani</li>
                             <li>Nairobi Kenya</li>
                             <li></li>
                         </ul>
@@ -75,7 +78,10 @@ const Footer = () => {
                         <ul>
                             <li>Customer Service</li>
                             <li>Legal & Privacy</li>
-                            <li></li>
+                           
+                            <li>
+                            <Link to="/FrequentQuestions" className='hover:underline'> FAQ,s</Link>
+                            </li>
                             <li></li>
                         </ul>
                     </div>

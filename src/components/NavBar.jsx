@@ -1,17 +1,18 @@
 import { useRef, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuthContext } from '../Hooks/useAuthContext';
 import { useLogout } from '../Hooks/useLogout';
 
 
 // FontAwesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping, faCaretDown, faMagnifyingGlass, faRightToBracket } 
+import { faCartShopping, faCaretDown, faMagnifyingGlass, faRightToBracket, faBars, faXmark } 
 from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 
 import { CartContext } from "../Context/CartContext";
 import { useContext } from "react";
+import NavLinks from './NavLinks';
 
 const NavBar = ({ categories, handleBrands, handleContacts, handleOffers, search, setSearch, toggleSearch}) => {
   
@@ -57,10 +58,11 @@ const handleClickOutside = (event) => {
     setUserBar(false)
   }
 };
+const [open, setOpen] = useState(false);
 
     return (
    <div className="flex flex-col bg-black w-full box-border top-0 fixed z-20 mb-10" >
-  {userBar &&  <div  ref={modalRef} className='absolute z-20 ml-[70vw] lg:ml-[86vw] rounded-md mt-12 bg-white shadow-lg py-4 px-6 '>
+  {userBar &&  <div  ref={modalRef} className='dropdown-list absolute z-20 ml-[70vw] lg:ml-[86vw] rounded-md mt-12 bg-white shadow-lg py-4 px-6 '>
     {
             !user &&
              <button className="cursor-pointer p-1 duration-75 bg-purple-500 rounded-md  outline-1 outline-purple-500 flex gap-1 items-center px-4 py-2 text-white" onClick={signInUser}>
@@ -113,7 +115,7 @@ const handleClickOutside = (event) => {
          
           {user &&
           <div className="flex gap-2.5 px-4 py-2 items-center">
-           <div className="cursor-pointer p-1 duration-75 hover:text-purple-500 outline-1 outline-purple-500" 
+           <div className="navbar-item cursor-pointer p-1 duration-75 hover:text-purple-500 outline-1 outline-purple-500" 
             onClick={userProfile}
            >
           <FontAwesomeIcon icon={faUser} className='my-0 mx-1.5' />
@@ -124,10 +126,33 @@ const handleClickOutside = (event) => {
 
           </div>
           }
-         
-
+         <div className="text-3xl md:hidden text-white" onClick={() => setOpen(!open)}>
+            <div name={`${open ? <FontAwesomeIcon icon={faXmark} size="lg" />: <FontAwesomeIcon icon={faBars} size="lg" />}`}></div>
+          </div>
+         <ul
+          className={`
+        md:hidden bg-white fixed w-full top-0 overflow-y-auto bottom-0 py-24 pl-4
+        duration-500 ${open ? "left-0" : "left-[-100%]"}
+        `}
+        >
+          <li>
+            <Link to="/" className="py-7 px-3 inline-block">
+              BESK MERCHANTS
+            </Link>
+          </li>
+          <NavLinks />
+          <div className="py-5">
+            <button></button>
+          </div>
+        </ul>
       </div>
      </div>
+{/* <CategoriesBar /> */}
+<div className='flex w-full'>
+  <NavLinks />
+</div>
+
+
 
      </div>
        

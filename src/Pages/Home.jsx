@@ -2,7 +2,9 @@ import { useNavigate } from 'react-router-dom';
 import  { useState, useRef, useEffect } from 'react';
 import { useLogout } from '../Hooks/useLogout';
 
-
+// FontAwesome
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronUp  } from '@fortawesome/free-solid-svg-icons';
 import { NavBar, Products, Footer, PopUps, Brands, HeroSection, Categories, HeroMobile}from '../components';
 
 import Modal from '../components/Modal';
@@ -65,7 +67,9 @@ const [isModal, setIsModal ] = useState(false);
     setIsModal(!isModal)
   }
 
-
+  const scrollToTop = ()=>{
+    window.scrollTo(0, 0);
+  }
 const [search, setSearch] = useState('')
 
     return ( 
@@ -110,7 +114,11 @@ const [search, setSearch] = useState('')
 <HeroMobile />
 <Products />
 
-
+<div className='fixed z-30 w-16 h-16 ml-[94%] -mt-24 '>
+   <button onClick={scrollToTop}
+   className=' text-purple-600 font-bold border-4 border-purple-600  rounded-full w-full h-full '
+   ><FontAwesomeIcon icon={faChevronUp} size="lg" /></button>
+</div>
 <Footer
  generateForm={handleContacts}
  
