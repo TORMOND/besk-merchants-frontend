@@ -23,7 +23,10 @@ const options = {
 
   import { backend } from './data/url';
 
+ 
 const Products = () => {
+   // const backend = process.env.BACKEND_URL;
+
    const KES = localStorage.getItem('USD_KSH');
    const { data:products, isPending, error } = useFetch(`${backend}/Products/`);
    const cart = useContext(CartContext);

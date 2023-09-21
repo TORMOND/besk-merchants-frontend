@@ -79,7 +79,7 @@ const [searchCustomerDetails, setSearchCustomerDetails] = useState('');
              variants= {boxVariants}
              initial='hidden'
              animate='visible'
-             className={`rounded-lg flex flex-col p-2 bg-gray-50 w-[80%] -mt-12  min-h-2/5 lg:w-[60%] ${searchCustomerDetails==''? 'max-h-14 overflow-hidden': 'h-fit max-h-[80vh'}`}
+             className={`rounded-lg flex flex-col p-2 bg-gray-50 w-[95%] mt-2 lg:-mt-12  min-h-2/5 lg:w-[60%] ${searchCustomerDetails==''? 'max-h-14 overflow-hidden': 'h-fit max-h-[80vh'}`}
              >
                 <div className='w-full p-2 flex gap-2.5 justify-between items-center border-b border-b-gray-300'>
                 <div  className=' text-start px-2 flex gap-1.5 items-center w-5/6'>

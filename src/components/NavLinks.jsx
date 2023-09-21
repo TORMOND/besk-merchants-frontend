@@ -2,31 +2,39 @@ import  { useState } from "react";
 import { Link } from "react-router-dom";
 import { links } from "./data/Links";
 
+
+// FontAwesome
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+
+
 const NavLinks = () => {
   const [heading, setHeading] = useState("");
   const [subHeading, setSubHeading] = useState("");
   return (
     <>
       {links.map((link) => (
-        <div key={link.name} className="hidden lg:block w-full">
-          <div className="px-3 text-left md:cursor-pointer group flex bg-gray-900">
+        <div key={link.name} className="lg:block w-full">
+          <div className="px-3 text-left md:cursor-pointer group flex lg:bg-gray-900">
             <h3
-              className="py-1 flex justify-between items-center md:pr-0 pr-5 group lg:text-white "
+              className="text-sm w-full lg:w-fit lg:text-md py-1 flex justify-between items-center md:pr-0 pr-5 group lg:text-white "
               onClick={() => {
                 heading !== link.name ? setHeading(link.name) : setHeading("");
                 setSubHeading("");
               }}
             >
               {link.name}
-              <span className="text-xl md:hidden inline">
-                <p
-                  name={`${
-                    heading === link.name ? "chevron-up" : "chevron-down"
-                  }`}
-                ></p>
+              <span className="text-xl  lg:hidden ">
+                <p className="hidden">
+                  {
+                    heading === link.name ? <FontAwesomeIcon icon={faChevronUp} /> : <FontAwesomeIcon icon={faChevronDown} />
+                  }
+                </p>
               </span>
-              <span className="text-xl md:mt-1 md:ml-2  md:block hidden group-hover:rotate-180 group-hover:-mt-2">
-                <p name="chevron-down"></p>
+              <span className="text-xl md:mt-1 md:ml-2  block lg:hidden group-hover:rotate-180 group-hover:-mt-2">
+                <p >
+                <FontAwesomeIcon icon={faChevronDown} />
+                </p>
               </span>
             </h3>
             {link.submenu && (
@@ -77,18 +85,16 @@ const NavLinks = () => {
                         ? setSubHeading(slinks.Head)
                         : setSubHeading("")
                     }
-                    className="py-4 pl-7 font-semibold  flex justify-between items-center md:pr-0 pr-5"
+                    className="text-sm lg:text-md py-4 pl-7 font-semibold  flex justify-between items-center md:pr-0 pr-5"
                   >
                     {slinks.Head}
 
-                    <span className="text-xl md:mt-1 md:ml-2 inline">
-                      <p
-                        name={`${
-                          subHeading === slinks.Head
-                            ? "chevron-up"
-                            : "chevron-down"
-                        }`}
-                      ></p>
+                    <span className="text-xl md:mt-1 ml-2 inline lg:hidden">
+                      <p className="">
+                      {
+                    subHeading === slinks.Head? <FontAwesomeIcon icon={faChevronUp} /> : <FontAwesomeIcon icon={faChevronDown} />
+                  }
+                      </p>
                     </span>
                   </h1>
                   <div

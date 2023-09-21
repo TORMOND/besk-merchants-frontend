@@ -96,7 +96,7 @@ const [open, setOpen] = useState(false);
   
       <div className="flex gap-5 items-center max-w-7xl">
       <div className="">
-          <button onClick={toggleSearch} className="border-0 py-1 px-5 text-gray-50 cursor-pointer " ><FontAwesomeIcon icon={faMagnifyingGlass} size="lg" /></button>
+          <button onClick={toggleSearch} className="border-0 py-1 px-5 text-gray-50 cursor-pointer hidden  lg:inline-block" ><FontAwesomeIcon icon={faMagnifyingGlass} size="lg" /></button>
       </div>
           <div className="relative cursor-pointer" onClick={cartPage}>
           <FontAwesomeIcon icon={faCartShopping}  className="text-xl my-0 mx-1.5" />
@@ -127,15 +127,19 @@ const [open, setOpen] = useState(false);
           </div>
           }
         
-         <div className="text-3xl md:hidden text-white" onClick={() => setOpen(!open)}>
+         <div className="text-2xl cursor-pointer text-white lg:hidden" onClick={() => setOpen(!open)}>
             <div >{open ? <FontAwesomeIcon icon={faXmark} size="lg" />: <FontAwesomeIcon icon={faBars} size="lg" />}</div>
           </div>
          <ul
           className={`
-        md:hidden bg-white text-black fixed w-full top-0 overflow-y-auto bottom-0 py-24 pl-4
+         bg-white text-black fixed w-full top-0 overflow-y-auto bottom-0 py-8 pl-4
         duration-500 ${open ? "left-0" : "left-[-100%]"}
         `}
         >
+          
+         <div className="text-2xl cursor-pointer flex justify-end px-5" onClick={() => setOpen(!open)}>
+            <div >{open ? <FontAwesomeIcon icon={faXmark} size="lg" />: <FontAwesomeIcon icon={faBars} size="lg" />}</div>
+          </div>
           <li>
             <Link to="/" className="py-7 px-3 inline-block">
               BESK MERCHANTS

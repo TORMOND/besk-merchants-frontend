@@ -7,6 +7,12 @@ import { AuthContextProvider } from './Context/AuthContext';
 import { CartProvider} from './Context/CartContext';
 // import { OrderProvider} from './Context/OrdersContext';
 import {ProductProvider} from './Context/ProductsContext';
+
+// import dotenv from 'dotenv';
+
+// // Load environment variables from .env file
+// dotenv.config();
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
