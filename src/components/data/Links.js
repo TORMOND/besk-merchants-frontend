@@ -96,51 +96,19 @@ export const links = [
           Head: "Energy",
           sublink: [
             { name: "Solar", link: "/catalog/Solar/solar" },
-            { name: "Bulbs", link: "/catalog/electronics/" },
+            { name: "Bulbs", link: "/catalog/electronics/bulbs" },
             { name: "Lamps", link: "/catalog/electronics/Lamps" },
             { name: "Jikos", link: "/catalog/electronis/Jikos" },
             { name: "Bateries", link: "/catalog/electronics/Bateries" },
           ],
         },
         {
-          Head: "Bulbs",
+          Head: "Tvs",
           sublink: [
-            { name: "T-shirt", link: "/catalog/" },
-            { name: "Casual shirts", link: "/catalog/" },
-            { name: "formal shirts", link: "/catalog/" },
-            { name: "formal shirts", link: "/catalog/" },
-            { name: "formal shirts", link: "/catalog/" },
-          ],
-        },
-        {
-          Head: "innerwear",
-          sublink: [
-            { name: "T-shirt", link: "/" },
-            { name: "Casual shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
-          ],
-        },
-  
-        {
-          Head: "sleepwear",
-          sublink: [
-            { name: "T-shirt", link: "/" },
-            { name: "Casual shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
-          ],
-        },
-        {
-          Head: "footwear",
-          sublink: [
-            { name: "T-shirt", link: "/" },
-            { name: "Casual shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
+            { name: "Samsung", link: "/catalog/Tv/Samsung" },
+            { name: "LG", link: "/catalog/Tv/LG" },
+            { name: "TCL", link: "/catalog/Tv/TCL" },
+            { name: "Hisense", link: "/catalog/Tv/Hisense" },
           ],
         },
       ],
@@ -150,7 +118,7 @@ export const links = [
       submenu: true,
       sublinks: [
         {
-          Head: "Topwear",
+          Head: "Equipments",
           sublink: [
             { name: "T-shirt", link: "/" },
             { name: "Casual shirts", link: "/" },
@@ -160,44 +128,19 @@ export const links = [
           ],
         },
         {
-          Head: "Bottomwear",
+          Head: "Tools",
           sublink: [
-            { name: "T-shirt", link: "/" },
-            { name: "Casual shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
+            { name: "Pulse Oximeter", link: "/catalog/Pulse Oximeter/Medical" },
+            { name: "Surgical Gloves", link: "/catalog/FaceMask/Medical" },
+          
           ],
         },
         {
-          Head: "innerwear",
+          Head: "Clothing",
           sublink: [
-            { name: "T-shirt", link: "/" },
-            { name: "Casual shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
-          ],
-        },
-  
-        {
-          Head: "sleepwear",
-          sublink: [
-            { name: "T-shirt", link: "/" },
-            { name: "Casual shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
-          ],
-        },
-        {
-          Head: "footwear",
-          sublink: [
-            { name: "T-shirt", link: "/" },
-            { name: "Casual shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
+            { name: "Surgical Face Masks", link: "/catalog/FaceMask/Medical" },
+            { name: "Surgical Gloves", link: "/catalog/FaceMask/Medical" },
+          
           ],
         },
       ],
@@ -220,11 +163,11 @@ export const links = [
           {
             Head: "Electronics",
             sublink: [
-              { name: "Samsung", link: "/catalog/Samsung" },
-              { name: "LG", link: "/catalog/LG" },
-              { name: "Phillips", link: "/catalog/Phillips" },
-              { name: "Hisense", link: "/catalog/Hisesnse" },
-              { name: "Multichoice", link: "/catalog/Multichoice" },
+              { name: "Samsung", link: "/catalog/Tv/Samsung" },
+              { name: "LG", link: "/catalog/Tv/LG" },
+              { name: "Phillips", link: "/catalog/Phillips/Phillips" },
+              { name: "Hisense", link: "/catalog/Tv/Hisense" },
+              { name: "Multichoice", link: "/catalog/Multichoice/Multichoice" },
             ],
           },
           {
