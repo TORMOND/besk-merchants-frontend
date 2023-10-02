@@ -40,6 +40,20 @@ const Advertisements = () => {
     })
     return ()=> abortCont.abort();
 }, [success]);
+// const [currentProductIndex, setCurrentProductIndex] = useState(0);
+//   const [currentProduct, setCurrentProduct] = useState(adverts[0]);
+
+  // useEffect(() => {
+  //   // Set interval to change the displayed product every 3 seconds
+  //   const intervalId = setInterval(() => {
+  //     const nextIndex = (currentProductIndex + 1) % adverts.length;
+  //     setCurrentProductIndex(nextIndex);
+  //     setCurrentProduct(adverts[nextIndex]);
+  //   }, 3000);
+
+  //   // Clean up the interval when the component unmounts
+  //   return () => clearInterval(intervalId);
+  // }, [currentProductIndex]);
 
   return (
     <div className='w-full '>

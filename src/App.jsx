@@ -17,6 +17,7 @@ import TermsConditions from './Pages/TermsConditions';
 import Catalog from './Pages/Catalog';
 import FrequentQuestions from './Pages/FrequentQuestions';
 import SearchCatalog from './Pages/SearchCatalog';
+import Paypal from './Pages/PayPal';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
     <Route path='/Orders' element={<OrdersPage />} ></Route>
     <Route path='/ForgotPassword' element={<ForgotPassword />} ></Route>
     <Route path='/cart' element={<Cart/>}></Route>
+    <Route path='/paypal' element={<Paypal/>}></Route>
     <Route path='/FrequentQuestions' element={<FrequentQuestions/>}></Route>
     <Route path='/catalog/:categ/:searchTerm' element={<Catalog/>}></Route>
     <Route path='/search-catalog/:searchTerm' element={<SearchCatalog/>}></Route>

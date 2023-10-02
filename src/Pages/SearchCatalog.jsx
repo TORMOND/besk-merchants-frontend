@@ -13,6 +13,8 @@ const SearchCatalog = () => {
     const [products, setProducts] = useState(null);
     const [isPending, setPending] = useState(true);
     const[error, setError] = useState(null);
+    const [page, setPage]= useState(0);
+    const [pageCount, setPageCount] = useState(0);
     const [brandChoice, setBrandChoice] = useState() 
     const [categoryChoice, setCategoryChoice] = useState() 
     const [sortBy, setSortBy] = useState('lowToHigh');
@@ -25,7 +27,8 @@ const SearchCatalog = () => {
               return res.json();
             }).then(data=> {    
               console.log(data);
-              setProducts(data);
+              setProducts(data.products);
+              setPageCount(data.pageCount)
               setPending(false)
             })
             .catch(error=> {
@@ -34,7 +37,19 @@ const SearchCatalog = () => {
               setError(true)
             })
             window.scrollTo(0, 0);
-          }, []);
+          }, [page]);
+          const handlePrev=()=>{
+            setPage((p)=>{
+              if(p===0) return p;
+              return page-1;
+            })
+           }
+           const handleNext=()=>{
+            setPage((p)=>{
+              if(p===pageCount) return p;
+              return page+1;
+            })
+           }
      const navigate = useNavigate();
      const selectProduct = (event, id)=>{
       localStorage.setItem('id', id)
@@ -104,8 +119,8 @@ const handlBrandChange = (event) => {
          toggleSearch={toggleSearch}
         />
 
-        <div className="p-5 mt-20  flex gap-5">
-         <div className="mt-5 bg-white py-2 px-5 rounded-md h-fit  w-1/4">
+        <div className="p-5 mt-20  flex flex-col lg:flex-row gap-5">
+         <div className="mt-5 bg-white py-2 px-5 rounded-md h-fit w-full lg:w-1/4">
          <h4 className="text-xl py-3 mt-2">BRANDS</h4>
          {companyBrands && companyBrands.map(brand=>(
             <div key={brand} className='py-1 flex gap-2'>
@@ -187,7 +202,17 @@ const handlBrandChange = (event) => {
 </div>
 ))}
             </div>
-      
+            {products &&
+               <div className="flex gap-2.5 py-2.5 px-5 justify-end ">
+                <p>{page+1} out of: {pageCount}</p>
+                <button
+                className="border border-purple-500 bg-white cursor-pointer font-semibold rounded-sm py-2.5 px-6 hover:bg-[#f6f8fa]"
+                 onClick={handlePrev} disabled={page===0}>Prev</button>
+                <button
+                className="border border-purple-500 bg-white cursor-pointer font-semibold rounded-sm py-2.5 px-6 hover:bg-[#f6f8fa]"
+                 onClick={handleNext} disabled={page===pageCount}>Next</button>
+               </div> 
+               }
 
 
    </div>   

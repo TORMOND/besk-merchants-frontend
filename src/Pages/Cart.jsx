@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from "../Context/CartContext";
 import { useContext, useState, useEffect } from "react";
-import { OrdersContext } from "../Context/OrdersContext";
 import { useAuthContext } from '../Hooks/useAuthContext';
 
 // FontAwesome
@@ -30,8 +29,19 @@ const Cart = () => {
       const [canceled, setIsCanceled] = useState(false);
       const [paymentLoading, setIsPaymentLoading] = useState(false);
       const [paymentError, setIsPaymentError] = useState(false)
-      const KES = localStorage.getItem('USD_KSH');
-      const orders= useContext(OrdersContext);
+      const currencies = JSON.parse(localStorage.getItem('USD_KSH')) || {KES:147} ;
+      const currencyData = localStorage.getItem('currencyData') || 'KES';
+      function findValueByKey(obj, key) {
+        return obj[key];
+      }
+      console.log(currencies)
+      
+      const currencyValue = findValueByKey(currencies, currencyData);
+      if (currencyValue !== undefined) {
+        console.log(`The value for  is ${currencyValue}`);
+      } else {
+        console.log(`${currencyData} not found in the object`);
+      }
       const [signInPrompt, setSignInPrompt] = useState(false);
       
       useEffect(() => {
@@ -48,14 +58,19 @@ const Cart = () => {
         }
         window.scrollTo(0, 0);
       }, []);
-    //   const [sizeChoice, setsizeChoice] = useState(size[0]) 
-    //  const handlsizeChange = (event) => {
-    //    setsizeChoice(event.target.value);
-    //    };
-    //    const [colorChoice, setColorChoice] = useState(color[0]) 
-    //    const handlcolorChange = (event) => {
-    //      setColorChoice(event.target.value);
-    //      };
+      let color;
+      let size;
+      cart.items? color = cart.items.color : color = []
+      cart.items? size = cart.items.size : size = []
+    
+      const [sizeChoice, setsizeChoice] = useState() 
+        const handlsizeChange = (event) => {
+          setsizeChoice(event.target.value);
+          };
+          const [colorChoice, setColorChoice] = useState() 
+          const handlcolorChange = (event) => {
+            setColorChoice(event.target.value);
+            };
     
 const checkout=()=>{
 
@@ -67,7 +82,9 @@ const checkout=()=>{
   localStorage.setItem('session_id', []);
           const body ={
             items: cart.items,
-            user:user.user._id 
+            user:user.user._id,
+            color,
+            size
           }
           const headers ={
             "Content-Type": "application/json"
@@ -119,9 +136,11 @@ const proceedToPay=()=>{
       {mpesaModal &&
       <MpesaModal
       toggleMpesa={closeMpesa}
-      amount={Math.ceil((cart.getTotalCost().toFixed(2))*KES)}
+      amount={Math.ceil((cart.getTotalCost().toFixed(2))*currencyValue)}
       items={cart.items}
-      KES={KES}
+      KES={currencyValue}
+      color={color}
+      size={size}
       />
       }
        {isModal &&
@@ -162,16 +181,13 @@ const proceedToPay=()=>{
             <h3>{item.title}</h3>
 
             <p className='mt-3 font-semibold'>{item.brands}</p>          
-         
- <div className="flex flex-col justify-between items-end ">
-           <h3 className='text-end'>${item.price} || KSH{Math.ceil(item.price*KES*item.quantity)} </h3>
-           <div className="flex gap-2 items-center my-2 border border-gray-400 rounded-sm max-w-fit">
-           {/* <ul className='my-2'>
+            {item.color.length>0 &&<ul className='my-2'>
   <li className='flex gap-2'>
     <p className=''>Color: </p>
    
+   
    {item.color.map((color) => (
-     <label key={color}>
+     <label key={color} className='flex gap-1'>
      <input
       type="radio" 
       name="radio"
@@ -186,13 +202,14 @@ const proceedToPay=()=>{
     
     </li>
 </ul>
+}
 
-<ul className='my-2'>
+{item.size.length>0 && <ul className='my-2'>
   <li className='flex gap-2'>
     <p className=''>Sizes: </p>
    
    {item.size.map((size) => (
-    <label key={size}>
+    <label key={size} className='flex gap-1'>
 			<input
        type="radio" 
        name="size"
@@ -206,8 +223,13 @@ const proceedToPay=()=>{
    }
     
     </li>
-</ul> */}
-
+</ul>
+}
+ <div className="flex flex-col justify-between  ">
+           <h3 > {currencyData} {Math.ceil(item.price*currencyValue*item.quantity)} 
+            </h3>
+           <div className="flex gap-2 items-center my-2 border border-gray-400 rounded-sm max-w-fit">
+         
           <button onClick={() => cart.removeOneFromCart(item._id)} disabled={item.quantity===1} className="p-2  border-0 w-10 hover:text-purple-500 cursor-pointer">-</button>
           <div className="text-lg">{item.quantity}</div>
           <button disabled={item.quantity===1000} onClick={() => cart.increaseQuantity(item._id)} className="p-2 border-0 w-10 hover:text-purple-500 cursor-pointer">+</button>
@@ -228,14 +250,15 @@ const proceedToPay=()=>{
 
             <h6>{item.title}</h6>
 
-           <h6 className='text-end'>${item.price*item.quantity} || KSH{Math.ceil(item.price*KES*item.quantity)} </h6>
+           <h6 className='text-end'>{currencyData} {Math.ceil(item.price*item.quantity*currencyValue)}  </h6>
 
             </div>
         ))}
 
    <div className="flex justify-between items-end my-2 gap-4">
         <div>Items({productsCount})</div>
-        <h3>Total: ${cart.getTotalCost().toFixed(2)} || KSH{Math.ceil((cart.getTotalCost().toFixed(2))*KES)} </h3>
+        <h3>Total: {currencyData} {Math.ceil((cart.getTotalCost().toFixed(2))*currencyValue)}
+         </h3>
     </div>
 
  <div className='flex gap-4 flex-row'>

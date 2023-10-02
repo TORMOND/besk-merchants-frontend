@@ -1,22 +1,24 @@
 import { useRef, useState} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuthContext } from '../Hooks/useAuthContext';
+import { ProductsContext } from '../Context/ProductsContext';
 import { useLogout } from '../Hooks/useLogout';
-
+import SideMenu from './SideMenu';
 
 // FontAwesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping, faCaretDown, faMagnifyingGlass, faRightToBracket, faBars, faXmark } 
+import { faCartShopping, faCaretDown, faLocationDot, faRightToBracket, faBars, faXmark } 
 from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 
 import { CartContext } from "../Context/CartContext";
 import { useContext } from "react";
-import NavLinks from './NavLinks';
+import SearchBar from './SearchBar';
 
-const NavBar = ({ categories, handleBrands, handleContacts, handleOffers, search, setSearch, toggleSearch}) => {
+const NavBar = ({ categories, handleBrands, handleContacts, handleOffers, search, setSearch}) => {
   
   const [userBar, setUserBar] = useState(false);
+  const country = localStorage.getItem('country');
   const navigate = useNavigate();
   const {user} = useAuthContext();
   const cart = useContext(CartContext);
@@ -60,6 +62,37 @@ const handleClickOutside = (event) => {
 };
 const [open, setOpen] = useState(false);
 
+const selectProduct = (event, id)=>{
+ localStorage.setItem('id', id)
+ navigate(`/ProductPage/${id}`)
+}
+
+const [searchCustomerDetails, setSearchCustomerDetails] = useState(''); 
+const prodContext = useContext(ProductsContext);
+const x = prodContext.items;
+const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      // Call your function or perform an action here
+      handleEnterKeyAction();
+    }
+  };
+const handleEnterKeyAction = () => {
+    // Replace this with your desired action
+    console.log('Enter key was pressed. Input value:',searchCustomerDetails);
+    if (searchCustomerDetails !==null && searchCustomerDetails !==''){
+        navigate('/search-catalog/' + searchCustomerDetails)
+    }
+  };
+
+const handleSearch = x.filter(purchase=>   
+    Object.values(purchase).join('').toLowerCase().trim().includes(searchCustomerDetails)
+    )
+    
+const purchasesToDisplay = searchCustomerDetails ? handleSearch : x;  
+
+const toggleSearch =()=>{
+  setSearchCustomerDetails('')
+}
     return (
    <div className="flex flex-col bg-black w-full box-border top-0 fixed z-20 mb-10" >
   {userBar &&  <div  ref={modalRef} className='dropdown-list absolute z-20 ml-[70vw] lg:ml-[86vw] rounded-md mt-12 bg-white shadow-lg py-4 px-6 '>
@@ -93,11 +126,13 @@ const [open, setOpen] = useState(false);
 }
      <div className="flex  sm:flex-row md:items-center justify-between bg-black w-full  text-gray-50 py-2 px-4  box-border ">
       <h2 className='text-lg cursor-pointer' onClick={homePage}>BESK MERCHANTS</h2> 
-  
-      <div className="flex gap-5 items-center max-w-7xl">
-      <div className="">
-          <button onClick={toggleSearch} className="border-0 py-1 px-5 text-gray-50 cursor-pointer hidden  lg:inline-block" ><FontAwesomeIcon icon={faMagnifyingGlass} size="lg" /></button>
+       <h3 className='text-start cursor-pointer hidden lg:inline-block'><FontAwesomeIcon icon={faLocationDot} size="lg" /> {country}</h3>
+      <div className='hidden lg:inline-block'>
+        <SearchBar  />
       </div>
+      
+       
+      <div className="flex gap-5 items-center max-w-7xl">
           <div className="relative cursor-pointer" onClick={cartPage}>
           <FontAwesomeIcon icon={faCartShopping}  className="text-xl my-0 mx-1.5" />
           <span  className="hidden lg:inline-block">Cart</span>
@@ -127,12 +162,12 @@ const [open, setOpen] = useState(false);
           </div>
           }
         
-         <div className="text-2xl cursor-pointer text-white lg:hidden" onClick={() => setOpen(!open)}>
+         <div className="text-2xl cursor-pointer text-white " onClick={() => setOpen(!open)}>
             <div >{open ? <FontAwesomeIcon icon={faXmark} size="lg" />: <FontAwesomeIcon icon={faBars} size="lg" />}</div>
           </div>
          <ul
           className={`
-         bg-white text-black fixed w-full top-0 overflow-y-auto bottom-0 py-8 pl-4
+         bg-white text-black fixed w-full lg:w-1/4 top-0 overflow-y-auto bottom-0 py-8 pl-4
         duration-500 ${open ? "left-0" : "left-[-100%]"}
         `}
         >
@@ -145,22 +180,19 @@ const [open, setOpen] = useState(false);
               BESK MERCHANTS
             </Link>
           </li>
-          <NavLinks />
+          <SideMenu />
           <div className="py-5">
             <button></button>
           </div>
         </ul>
       </div>
+
      </div>
-{/* <CategoriesBar /> */}
-<div className="w-full  flex justify-end lg:hidden">
-          <button onClick={toggleSearch} className="border-0 py-1 px-5 text-gray-50 cursor-pointer " ><FontAwesomeIcon icon={faMagnifyingGlass} size="lg" /></button>
-      </div>
-<div className='flex w-full'>
-  <NavLinks />
-</div>
 
-
+ <div className="w-full flex items-center gap-2 py-2 lg:hidden px-5">
+<h3 className='text-start cursor-pointer text-white'><FontAwesomeIcon icon={faLocationDot} size="lg" /> {country}</h3>
+         <SearchBar />
+      </div>     
 
      </div>
        

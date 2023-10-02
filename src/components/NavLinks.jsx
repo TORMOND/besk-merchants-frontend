@@ -13,18 +13,18 @@ const NavLinks = () => {
   const [subHeading, setSubHeading] = useState("");
   return (
     <>
-      {links.map((link) => (
-        <div key={link.name} className="lg:block w-full">
-          <div className="px-3 text-left md:cursor-pointer group flex lg:bg-gray-900">
+      {links.map((link, index) => (
+        <div key={index} className="lg:block w-full">
+          <div className="px-3 text-left md:cursor-pointer group flex text-gray-600">
             <h3
-              className="text-sm w-full lg:w-fit lg:text-md py-1 flex justify-between items-center md:pr-0 pr-5 group lg:text-white "
+              className="text-sm lg:text-lg w-full lg:w-fit lg:text-md py-1 flex justify-between items-center md:pr-0 pr-5 group "
               onClick={() => {
                 heading !== link.name ? setHeading(link.name) : setHeading("");
                 setSubHeading("");
               }}
             >
               {link.name}
-              <span className="text-xl  lg:hidden ">
+              <span className="text-xl">
                 <p className="hidden">
                   {
                     heading === link.name ? <FontAwesomeIcon icon={faChevronUp} /> : <FontAwesomeIcon icon={faChevronDown} />
@@ -33,13 +33,12 @@ const NavLinks = () => {
               </span>
               <span className="text-xl md:mt-1 md:ml-2  block lg:hidden group-hover:rotate-180 group-hover:-mt-2">
                 <p >
-                <FontAwesomeIcon icon={faChevronDown} />
                 </p>
               </span>
             </h3>
             {link.submenu && (
               <div>
-                <div className="absolute top-20 -ml-20 hidden group-hover:md:block hover:md:block">
+                <div className="absolute top-20 -ml-20 hidden bg-red-300">
                   <div className="py-3">
                     <div
                       className="w-4 h-4 left-2 absolute 
@@ -47,13 +46,13 @@ const NavLinks = () => {
                     ></div>
                   </div>
                   <div className="bg-white p-5 grid grid-cols-3 gap-10">
-                    {link.sublinks.map((mysublinks) => (
-                      <div key={mysublinks.Head}>
+                    {link.sublinks.map((mysublinks, index) => (
+                      <div key={index}>
                         <h1 className="text-lg font-semibold">
                           {mysublinks.Head}
                         </h1>
-                        {mysublinks.sublink.map((slink) => (
-                          <li className="text-sm text-gray-600 my-2.5" key={slink.name}>
+                        {mysublinks.sublink.map((slink,index) => (
+                          <li className="text-sm text-gray-600 my-2.5 list-none" key={index}>
                             <Link
                               to={slink.link}
                               className="hover:text-primary"
@@ -76,8 +75,8 @@ const NavLinks = () => {
           `}
           >
             {/* sublinks */}
-            {link.sublinks.map((slinks) => (
-              <div key={slinks}>
+            {link.sublinks.map((slinks,index) => (
+              <div key={index}>
                 <div>
                   <h1
                     onClick={() =>
@@ -102,8 +101,8 @@ const NavLinks = () => {
                       subHeading === slinks.Head ? "md:hidden" : "hidden"
                     }`}
                   >
-                    {slinks.sublink.map((slink) => (
-                      <li className="py-3 pl-14" key={slink}>
+                    {slinks.sublink.map((slink, index) => (
+                      <li className="py-3 pl-14" key={index}>
                         <Link to={slink.link}>{slink.name}</Link>
                       </li>
                     ))}

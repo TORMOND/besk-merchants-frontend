@@ -1,7 +1,6 @@
 import useFetch from '../UseFetch';
 import { CartContext } from "../Context/CartContext";
 import { useContext, useState, useEffect } from "react";
-import { OrdersContext } from "../Context/OrdersContext";
 
 // FontAwesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,13 +17,27 @@ import SimilarProducts from './SimilarProducts';
 
 const SelectedProduct = () => {
   const id = localStorage.getItem('id');
-  const KES = localStorage.getItem('USD_KSH');
+  const currencies = JSON.parse(localStorage.getItem('USD_KSH')) || {currencyValue:147} ;
+      const currencyData = localStorage.getItem('currencyData') || 'currencyValue';
+      function findValueByKey(obj, key) {
+        return obj[key];
+      }
+      // console.log(currencies)
+      
+      const currencyValue = findValueByKey(currencies, currencyData);
+      // if (currencyValue !== undefined) {
+      //   console.log(`The value for  is ${currencyValue}`);
+      // } else {
+      //   console.log(`${currencyData} not found in the object`);
+      // }
   const {user} = useAuthContext();
   // console.log(user.user)
   // user==null? console.log('No USER'):console.log(user.user)
   const userId = user? user.user._id: null
-  console.log(userId)
+  // console.log(userId)
   const [canceled, setIsCanceled] = useState(false)
+
+  
   useEffect(() => {
     if (typeof window === 'undefined') {
       return;
@@ -39,7 +52,6 @@ const SelectedProduct = () => {
   }, []);
    const {data:product, isPending, error} = useFetch(`${backend}/products/${id}`);
    const [isSuccess,setIsSuccess] = useState(false);
-   const orders= useContext(OrdersContext);
    let [quantity, setQuantity] = useState(1);
    const [signInPrompt, setSignInPrompt] = useState(false);
    let color;
@@ -102,10 +114,30 @@ const SelectedProduct = () => {
  product? item.push(prod) : []
  const cart = useContext(CartContext);
 
+ let productId  = product ? product._id : null;
+
+ const [productIdToCheck, setProductIdToCheck] = useState('');
+ const [productExists, setProductExists] = useState(false);
+ 
+//  const [isInCart, setIsInCart ] = useState()
+//  
+
+
+ const checkProductExistence = (productId) => {
+  //  const idToCheck = parseInt(productIdToCheck);
+      
+   if (!isNaN(productId)) {
+     const productExists = cart.items.filter((product) => product.id === productId);  
+     setProductExists(productExists);
+     console.log("Product Exists",productExists)
+     return productExists;
+   }
+ };
+
  const [mpesaModal, setMpesaModal] = useState(false)
 
  let category = product? product.device : null
- console.log(category)
+//  console.log(category)
  const mpesaPay=()=>{
   setMpesaModal(true)
   }
@@ -122,12 +154,13 @@ const SelectedProduct = () => {
     makePayment()
   }
 
+
     return ( 
        <div>
  {mpesaModal && product &&
       <MpesaModal
       toggleMpesa={closeMpesa}
-      amount={Math.ceil(product.price*KES)}
+      amount={Math.ceil(product.price*currencyValue)}
       items={item}
       />
       }
@@ -217,23 +250,22 @@ const SelectedProduct = () => {
 <h2 className='product-title'>{product.title}</h2>
 <p className='product-brand'>Brand:{product.brands}</p>
 
-<h3 className='product-price'>${product.price} || KSH{Math.ceil(product.price*KES)}</h3>
+<h3 className='product-price'>{currencyData} {Math.ceil(product.price*currencyValue)}</h3>
 <div className="rating">
                   <FontAwesomeIcon icon={ faStar} className='ratings' />
                   <FontAwesomeIcon icon={ faStar} className='ratings'  />
                   <FontAwesomeIcon icon={ faStar} className='ratings'  />
                   <FontAwesomeIcon icon={ faStar} className='ratings'  />
                   <FontAwesomeIcon icon={faStarHalfStroke} className='ratings'  />
-                  {/* <p>123</p> */}
                   </div>
 
 
-<ul className='my-2'>
+{product.color.length>0 &&<ul className='my-2'>
   <li className='flex gap-2'>
     <p className=''>Color: </p>
    
    {product.color.map((color) => (
-     <label key={color}>
+     <label key={color} className='flex gap-1'>
      <input
       type="radio" 
       name="radio"
@@ -248,14 +280,14 @@ const SelectedProduct = () => {
     
     </li>
 </ul>
+}
 
-
-<ul className='my-2'>
+{product.size.length>0 && <ul className='my-2'>
   <li className='flex gap-2'>
     <p className=''>Sizes: </p>
    
    {product.size.map((size) => (
-    <label key={size}>
+    <label key={size} className='flex gap-1'>
 			<input
        type="radio" 
        name="size"
@@ -270,7 +302,7 @@ const SelectedProduct = () => {
     
     </li>
 </ul>
-
+}
 <p>Made in: {product.make}</p>
 <div className="details">
     <h3>About this item</h3>
@@ -283,7 +315,7 @@ const SelectedProduct = () => {
 </div>
 </div>
 <div className="w-full lg:w-2/5 top-36 lg:sticky mt-5 rounded-sm border border-gray-300 flex flex-col gap-5 p-4 text-start ">
-<h3 className='product-price'>${product.price*quantity} || KSH{Math.ceil(product.price*KES*quantity)}</h3>
+<h3 className='product-price'>{currencyData} {Math.ceil(product.price*currencyValue*quantity)}</h3>
  
 
 <div className="flex flex-col gap-5 py-2.5 px-4 ">
@@ -292,7 +324,7 @@ const SelectedProduct = () => {
           <div className="text-lg  my-auto">{quantity}</div>       
           <button disabled={quantity===1000} onClick={incrementQuantity} className="p-2 border-0 w-10 hover:text-purple-500 cursor-pointer">+</button>
           </div>
- 
+ <p>{()=>checkProductExistence(product._id)}</p>
    <button onClick={()=>cart.addOneToCart(product)} 
    className='before:absolute before:-ml-12 before:transition-[width] before:top-0 before:w-0 before:h-full before:bg-purple-500 before:skew-x-45 before:z-[-1] before:duration-1000  overflow-hidden relative    cursor-pointer p-2 flex justify-center max-w-[200px] rounded-sm  duration-1000 border-0 transition-all  text-purple-500 outline outline-offset-2 outline-purple-500 box-border hover:text-white hover:scale-110 hover:shadow-lg hover:shadow-purple-400  hover:before:w-80 '
    >

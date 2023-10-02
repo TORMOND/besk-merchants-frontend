@@ -1,20 +1,28 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
+import { CartContext } from "../Context/CartContext";
 
 import { NavBar, Footer, Modal  }from '../components';
 
 import { useNavigate, useParams} from 'react-router-dom';
 import { backend } from "../components/data/url";
 import Loading from '../components/Loading';
+// FontAwesome
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+
 
 const Catalog = () => {
   const  {categ, searchTerm}  = useParams();
+  const cart = useContext(CartContext);
+  const [page, setPage]= useState(0);
+  const [pageCount, setPageCount] = useState(0);
    console.log(categ, searchTerm)
     const category =searchTerm
     const [products, setProducts] = useState(null);
     const [isPending, setPending] = useState(true);
     const[error, setError] = useState(null);
     const [brandChoice, setBrandChoice] = useState() 
-    const [categoryChoice, setCategoryChoice] = useState(categ) 
+    const [categoryChoice] = useState(categ) 
     const [sortBy, setSortBy] = useState('lowToHigh');
         useEffect(()=>{
             fetch(`${backend}/products/getSearchProducts/${category}`)
@@ -24,8 +32,9 @@ const Catalog = () => {
              }
               return res.json();
             }).then(data=> {    
-              console.log(data);
-              setProducts(data);
+             console.log(data);
+              setProducts(data.products);     
+              setPageCount(data.pageCount)
               setPending(false)
             })
             .catch(error=> {
@@ -34,7 +43,20 @@ const Catalog = () => {
               setError(true)
             })
             window.scrollTo(0, 0);
-          }, []);
+          }, [page]);
+              
+    const handlePrev=()=>{
+      setPage((p)=>{
+        if(p===0) return p;
+        return page-1;
+      })
+     }
+     const handleNext=()=>{
+      setPage((p)=>{
+        if(p===pageCount) return p;
+        return page+1;
+      })
+     }
      const navigate = useNavigate();
      const selectProduct = (event, id)=>{
       localStorage.setItem('id', id)
@@ -55,8 +77,7 @@ const y = Array.from(new Set(brands))
 return y
 }
 
-           const items = products? findBrands(products): []
-          
+// const items = products? findBrands(products): []
 
 const companyBrands = products? findBrands(products): [] 
 const handleSortChange = (event) => {
@@ -142,22 +163,40 @@ const handlBrandChange = (event) => {
    <div   key={product._id} >
    <div 
    className={`cursor-pointer  bg-white duration-75 rounded-sm hover:shadow-xl shadow-gray-500/50 aspect-square`} 
-    onClick={event=>selectProduct(event, product._id)}>
+   >
     
-   <div className="w-[80%] mx-auto aspect-square object-contain flex bg-no-repeat">
+   <div className="w-[80%] mx-auto aspect-square object-contain flex bg-no-repeat"
+    onClick={event=>selectProduct(event, product._id)}>
     <img src={product.img} alt={product.title} />  
    </div> 
-   <div className="p-4 font-semibold text-sm">
+   <div className="p-4 font-semibold text-sm"
+    onClick={event=>selectProduct(event, product._id)}>
    <p>{product.title}</p>
    <span>${product.price}</span>
    
-   </div>
-
+  
+</div>
+<button onClick={()=>cart.addOneToCart(product)} 
+   className='text-sm before:absolute before:-ml-12 before:transition-[width] before:top-0 before:w-0 before:h-full before:bg-purple-500 before:skew-x-45 before:z-[-1] before:duration-1000  overflow-hidden relative    cursor-pointer p-2 flex justify-center w-4/5 rounded-sm  duration-1000 border-0 transition-all  text-purple-500 outline outline-offset-2 outline-purple-500 box-border hover:text-white hover:scale-110 hover:shadow-lg hover:shadow-purple-400  hover:before:w-80 mx-auto'
+   >
+      <FontAwesomeIcon icon={faCartShopping}  className="shoppingCart" />Add to Cart</button>
 </div>
 </div>
 ))}
+
+
             </div>
- 
+            {products &&
+               <div className="flex gap-2.5 py-2.5 px-5 justify-end ">
+                <p>{page+1} out of: {pageCount}</p>
+                <button
+                className="border border-purple-500 bg-white cursor-pointer font-semibold rounded-sm py-2.5 px-6 hover:bg-[#f6f8fa]"
+                 onClick={handlePrev} disabled={page===0}>Prev</button>
+                <button
+                className="border border-purple-500 bg-white cursor-pointer font-semibold rounded-sm py-2.5 px-6 hover:bg-[#f6f8fa]"
+                 onClick={handleNext} disabled={page===pageCount}>Next</button>
+               </div> 
+               }
    </div>
         
             

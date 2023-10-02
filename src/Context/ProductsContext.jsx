@@ -20,7 +20,6 @@ export function ProductProvider({children}) {
         setFilteredProducts(data)
     }
 
-    
     const contextValue = {
         items: products,
         filteredItems:filteredProducts,

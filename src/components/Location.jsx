@@ -74,9 +74,7 @@ useEffect(()=>{
       const newPrice = location.price
       localStorage.setItem('location-Price', newPrice)
       console.log(newPrice)
-  }
-      
-)
+  })
 
 }, [selectedOption])
 
@@ -106,10 +104,7 @@ useEffect(()=>{
         <option value={state} key={location.state}>{location.state}</option>
     ))}
      </select>
-   </div>
-  
-
-   
+   </div>  
 {
   price &&
   <div className="flex gap-2 text-sm">
@@ -117,9 +112,6 @@ useEffect(()=>{
 <div className='flex gap-1'>Delivery to  <h4>{selectedOption}</h4>  is<h4> Ksh {price}</h4> & Occurs within the next 48hrs After Purchase</div>
     </div>
 }
-
-
-
     </div>
     </div>  
   );

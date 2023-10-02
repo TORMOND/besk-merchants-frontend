@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { ProductsContext } from './Context/ProductsContext';
 import { useContext } from "react";
 
 
@@ -7,7 +6,7 @@ const useFetch = (url) => {
     const [data, setData] = useState(null);
     const [isPending, setPending] = useState(true);
     const[error, setError] = useState(null)
-    const prodContext = useContext(ProductsContext);
+  
 
     useEffect(()=>{
         fetch(url)
@@ -19,7 +18,6 @@ const useFetch = (url) => {
         }).then(data=> {    
           setData(data);
           setPending(false)
-          prodContext.setProducts(data)
         })
         .catch(error=> {
           setPending(false)

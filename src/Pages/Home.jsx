@@ -5,9 +5,10 @@ import { useLogout } from '../Hooks/useLogout';
 // FontAwesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp  } from '@fortawesome/free-solid-svg-icons';
-import { NavBar, Products, Footer, PopUps, Brands, HeroSection, Categories, HeroMobile}from '../components';
+import { NavBar, Products, Footer, PopUps, Brands, HeroSection, countries, Categories, HeroMobile}from '../components';
 
 import Modal from '../components/Modal';
+import axios from 'axios';
 
 const Home = () => {     
 
@@ -21,20 +22,45 @@ const Home = () => {
   const [contacts, setContacts] = useState(false);
   const ref = useRef(null);
   const brands_ref = useRef(null);
+  const [country, setCountry] = useState('');
+ const countriesList = countries
+ console.log(countries)
 
-  
+ const [currencyData, setCurrencyData] = useState('');
+// const currency  = countriesList.filter(country => country.abbreviation === userCountry)[0].currency
+
+
 useEffect(()=>{
-  const fetchOptions = {
-    mode: 'no-cors',
-  };
-  fetch('https://api.exchangerate-api.com/v4/latest/USD',fetchOptions)
+
+  // Fetches user location based on IP address
+  // axios.get(
+  //   'https://ipinfo.io?token=0b3c48d0a4400f'
+  //   )
+  //     .then(response => {
+  //       const data = response.data;
+  //       const userCountry = data.country;
+  //       setCountry(userCountry);
+  //       localStorage.setItem('country', userCountry)
+  //       setCurrencyData(countriesList.filter(country => country.abbreviation === userCountry)[0].currency)
+  //       localStorage.setItem('currencyData', currencyData)
+  //       console.log(currencyData)
+  //       console.log(data)
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching IP data:', error);
+  //     });
+
+  fetch('https://api.exchangerate-api.com/v4/latest/USD')
   .then(response =>{
       return response.json();
   }).then(data =>{
-      localStorage.setItem('USD_KSH', data.rates.KES)
+    const currency = data.rates;
+      localStorage.setItem('USD_KSH', JSON.stringify(currency))
+  }).catch(err=>{
+    console.log(err.message)
   })
   
-})
+}, [])
 const signInUser =()=>{
   navigate('/LoginPage')
 }
@@ -101,16 +127,13 @@ const [search, setSearch] = useState('')
  toggleSearch={toggleSearch}
  />
 {userBar && <div className="user-profile-bar" ref={userProfileBar}>
-  <p></p>
-  <p className='checkProfile'>PROFILE</p>
+  <p  className='checkProfile'>PROFILE</p>
   <p className='logout' onClick={handleLogout}>LOG OUT</p>
 </div>
 }
 
 <HeroSection />
-
 <Categories />
-
 <HeroMobile />
 <Products />
 

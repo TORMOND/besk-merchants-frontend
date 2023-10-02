@@ -52,9 +52,7 @@ const Footer = () => {
                     </div>
              </div>
              <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 ">
-                <div>
-                    
-                </div>
+
                 <div>
                 <h3>COMPANY</h3>
                         <ul>

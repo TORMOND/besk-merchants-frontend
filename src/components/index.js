@@ -13,6 +13,8 @@ import Success from './Success';
 import Carousel from './carousel/Carousel';
 import EditProfile from './EditProfile';
 import SimilarProducts from './SimilarProducts';
+import { countries } from './data/locations';
+import SideMenu from './SideMenu';
 
 export {
     Brands,
@@ -29,5 +31,7 @@ export {
     Cancel,
     Success,
     EditProfile,
-    SimilarProducts
+    SimilarProducts,
+    countries,
+    SideMenu
 }

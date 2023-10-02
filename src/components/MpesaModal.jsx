@@ -10,7 +10,7 @@ import { faXmark} from '@fortawesome/free-solid-svg-icons';
 import { backend } from './data/url';
 import Location from './Location';
 
-const MpesaModal = ({toggleMpesa, amount, items, KES}) => {
+const MpesaModal = ({toggleMpesa, amount, items, KES, color, size}) => {
 
   const containerVariants={
     hidden:{
@@ -91,7 +91,11 @@ console.log(itemIds)
       amount:1, 
       location, 
       newPrice, 
-      userId:user.user._id
+      userId:user.user._id,
+      userEmail:user.user.email,
+      userName:user.user.firstName + ' ' + user.user.secondName,
+      color,
+      size
     })
 })
 

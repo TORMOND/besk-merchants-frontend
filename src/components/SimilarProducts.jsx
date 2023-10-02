@@ -14,7 +14,7 @@ const options = {
 
 const SimilarProducts = ({category}) => {
     const navigate = useNavigate();
-    console.log(category)
+    // console.log(category)
     // const category = category;
     const id = localStorage.getItem('id');
     const [products, setProducts] = useState(null);
@@ -29,7 +29,7 @@ const SimilarProducts = ({category}) => {
           return res.json();
         }).then(data=> {    
           setProducts(data.products);
-          console.log(data);
+          // console.log(data);
           setPending(false)
         })
         .catch(error=> {
@@ -45,6 +45,19 @@ const SimilarProducts = ({category}) => {
         localStorage.setItem('id', id)
         navigate(`/ProductPage/${id}`)
        }
+       const currencies = JSON.parse(localStorage.getItem('USD_KSH')) || {currencyValue:147} ;
+      const currencyData = localStorage.getItem('currencyData') || 'currencyValue';
+      function findValueByKey(obj, key) {
+        return obj[key];
+      }
+      // console.log(currencies)
+      
+      const currencyValue = findValueByKey(currencies, currencyData);
+      // if (currencyValue !== undefined) {
+      //   console.log(`The value for  is ${currencyValue}`);
+      // } else {
+      //   console.log(`${currencyData} not found in the object`);
+      // }
   return (
     <div>
         {isPending &&     
@@ -77,7 +90,7 @@ className="w-[80%] mx-auto aspect-square object-contain flex bg-no-repeat">
 </div> 
       <div className="p-4 font-semibold">
       <p className='text-sm md:text-md'>{product.title}</p>
-      <span className=''>${product.price}</span>
+      <span className=''>{currencyData}{Math.ceil(product.price*currencyValue)}</span>
       
       </div>
   

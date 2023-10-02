@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 
-function App() {
+function Paypal() {
   useEffect(() => {
     // Function to create an order on your server
     const createOrder = () => {
@@ -155,3 +155,28 @@ function App() {
           </div>
           <div>
             <input
+              type="text"
+              id="card-billing-address-zip"
+              name="card-billing-address-zip"
+              autoComplete="off"
+              placeholder="zip / postal code"
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              id="card-billing-address-country"
+              name="card-billing-address-country"
+              autoComplete="off"
+              placeholder="country code"
+            />
+          </div>
+          <br /><br />
+          <button value="submit" id="submit" className="btn">Pay</button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+export default Paypal;

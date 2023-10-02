@@ -7,7 +7,6 @@ import{ useEffect } from "react";
 const ProductPage = () => {
 
     const { id } = useParams()
-    // const setId =localStorage.setItem('id', id)
     const navigate = useNavigate()
 
     console.log(id)
