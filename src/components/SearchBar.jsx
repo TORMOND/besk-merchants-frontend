@@ -19,7 +19,7 @@ const SearchBar = ()=>{
    
 const [searchCustomerDetails, setSearchCustomerDetails] = useState(''); 
     const prodContext = useContext(ProductsContext) ;
-    console.log(prodContext.items)
+    // console.log(prodContext.items)
     const x = prodContext.items || [];
     
    const handleKeyPress = (event) => {

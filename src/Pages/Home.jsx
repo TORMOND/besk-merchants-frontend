@@ -24,14 +24,12 @@ const Home = () => {
   const brands_ref = useRef(null);
   const [country, setCountry] = useState('');
  const countriesList = countries
- console.log(countries)
 
  const [currencyData, setCurrencyData] = useState('');
 // const currency  = countriesList.filter(country => country.abbreviation === userCountry)[0].currency
 
 
 useEffect(()=>{
-
   // Fetches user location based on IP address
   axios.get(
     'https://ipinfo.io?token=0b3c48d0a4400f'
@@ -42,20 +40,22 @@ useEffect(()=>{
         setCountry(userCountry);
         localStorage.setItem('country', userCountry)
         setCurrencyData(countriesList.filter(country => country.abbreviation === userCountry)[0].currency)
-        localStorage.setItem('currencyData', currencyData)
+        localStorage.setItem('currencyData', countriesList.filter(country => country.abbreviation === userCountry)[0].currency)
         console.log(currencyData)
         console.log(data)
       })
       .catch(error => {
         console.error('Error fetching IP data:', error);
+        console.log('Error fetching IP data:', error)
       });
 
   fetch('https://api.exchangerate-api.com/v4/latest/USD')
   .then(response =>{
       return response.json();
+
   }).then(data =>{
     const currency = data.rates;
-      localStorage.setItem('USD_KSH', JSON.stringify(currency))
+      localStorage.setItem('USD_KSH', JSON.stringify(currency) || [])
   }).catch(err=>{
     console.log(err.message)
   })
@@ -135,7 +135,10 @@ const [search, setSearch] = useState('')
 <HeroSection />
 <Categories />
 <HeroMobile />
+{currencyData && 
 <Products />
+}
+
 
 <div className='fixed z-30 w-16 h-16 ml-[94%] -mt-24 '>
    <button onClick={scrollToTop}
