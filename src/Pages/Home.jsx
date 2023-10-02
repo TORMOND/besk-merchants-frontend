@@ -33,22 +33,22 @@ const Home = () => {
 useEffect(()=>{
 
   // Fetches user location based on IP address
-  // axios.get(
-  //   'https://ipinfo.io?token=0b3c48d0a4400f'
-  //   )
-  //     .then(response => {
-  //       const data = response.data;
-  //       const userCountry = data.country;
-  //       setCountry(userCountry);
-  //       localStorage.setItem('country', userCountry)
-  //       setCurrencyData(countriesList.filter(country => country.abbreviation === userCountry)[0].currency)
-  //       localStorage.setItem('currencyData', currencyData)
-  //       console.log(currencyData)
-  //       console.log(data)
-  //     })
-  //     .catch(error => {
-  //       console.error('Error fetching IP data:', error);
-  //     });
+  axios.get(
+    'https://ipinfo.io?token=0b3c48d0a4400f'
+    )
+      .then(response => {
+        const data = response.data;
+        const userCountry = data.country;
+        setCountry(userCountry);
+        localStorage.setItem('country', userCountry)
+        setCurrencyData(countriesList.filter(country => country.abbreviation === userCountry)[0].currency)
+        localStorage.setItem('currencyData', currencyData)
+        console.log(currencyData)
+        console.log(data)
+      })
+      .catch(error => {
+        console.error('Error fetching IP data:', error);
+      });
 
   fetch('https://api.exchangerate-api.com/v4/latest/USD')
   .then(response =>{
