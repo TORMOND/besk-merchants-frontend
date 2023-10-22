@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 
+
 const LoginPage = () => {
   const navigate = useNavigate()
  
@@ -14,6 +15,7 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
 
     const {login, error, isLoading} = useLogin();
+
     const handleSignup = ()=> {
       navigate('/SignUpPage')
      }

@@ -127,16 +127,16 @@ export const links = [
       name: "Medical",
       submenu: true,
       sublinks: [
-        {
-          Head: "Equipments",
-          sublink: [
-            { name: "T-shirt", link: "/catalog/Medical/" },
-            { name: "Casual shirts", link: "/catalog/Medical/" },
-            { name: "formal shirts", link: "/catalog/Medical/" },
-            { name: "formal shirts", link: "/catalog/Medical/" },
-            { name: "formal shirts", link: "/catalog/Medical/" },
-          ],
-        },
+        // {
+        //   Head: "Equipments",
+        //   sublink: [
+        //     { name: "T-shirt", link: "/catalog/Medical/" },
+        //     { name: "Casual shirts", link: "/catalog/Medical/" },
+        //     { name: "formal shirts", link: "/catalog/Medical/" },
+        //     { name: "formal shirts", link: "/catalog/Medical/" },
+        //     { name: "formal shirts", link: "/catalog/Medical/" },
+        //   ],
+        // },
         {
           Head: "Tools",
           sublink: [
@@ -162,11 +162,11 @@ export const links = [
         {
           Head: "Equipments",
           sublink: [
-            { name: "T-shirt", link: "/" },
-            { name: "Casual shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
-            { name: "formal shirts", link: "/" },
+            { name: "Tiles", link: "/" },
+            { name: "Meter", link: "/" },
+            // { name: "formal shirts", link: "/" },
+            // { name: "formal shirts", link: "/" },
+            // { name: "formal shirts", link: "/" },
           ],
         },
         {
@@ -264,6 +264,19 @@ export const links = [
               { name: "Honey", link: "/catalog/Food/Honey" },
               { name: "Sugar", link: "/catalog/Food/Sugar" },
               { name: "Sweet & Baked goods", link: "/catalog/Food/Sweet & Baked goods" },
+            ],
+          },
+         
+        ],
+      },
+      {
+        name: "Services",
+        submenu: true,
+        sublinks: [
+          {
+            Head: "Comming soon",
+            sublink: [
+              
             ],
           },
          

@@ -28,7 +28,7 @@ const Cart = () => {
       const [isModal, setIsModal ] = useState(false);
       const [canceled, setIsCanceled] = useState(false);
       const [paymentLoading, setIsPaymentLoading] = useState(false);
-      const [paymentError, setIsPaymentError] = useState(false)
+      const [paymentError, setIsPaymentError] = useState(false);
       const currencies = JSON.parse(localStorage.getItem('USD_KSH')) || {KES:147} ;
       const currencyData = localStorage.getItem('currencyData') || 'KES';
       function findValueByKey(obj, key) {
@@ -250,7 +250,7 @@ const proceedToPay=()=>{
 
             <h6>{item.title}</h6>
 
-           <h6 className='text-end'>{currencyData} {Math.ceil(item.price*item.quantity*currencyValue)}  </h6>
+           <h6 className='text-end'>{currencyData} {Math.ceil(item.price*item.quantity*currencyValue)}</h6>
 
             </div>
         ))}

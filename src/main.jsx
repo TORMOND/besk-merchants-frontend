@@ -6,6 +6,7 @@ import './main.css'
 import { AuthContextProvider } from './Context/AuthContext';
 import { CartProvider} from './Context/CartContext';
 // import { OrderProvider} from './Context/OrdersContext';
+import { GeneralContext } from './Context/GeneralContext.jsx';
 import {ProductProvider} from './Context/ProductsContext';
 
 // import dotenv from 'dotenv';
@@ -19,9 +20,7 @@ root.render(
     <AuthContextProvider>
       <ProductProvider>
          <CartProvider >
-
              <App /> 
-
       </CartProvider>
       </ProductProvider>
     </AuthContextProvider>

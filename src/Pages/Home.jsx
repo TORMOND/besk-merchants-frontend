@@ -5,7 +5,17 @@ import { useLogout } from '../Hooks/useLogout';
 // FontAwesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronUp  } from '@fortawesome/free-solid-svg-icons';
-import { NavBar, Products, Footer, PopUps, Brands, HeroSection, countries, Categories, HeroMobile}from '../components';
+import { 
+  NavBar, 
+  Products, 
+  Footer, 
+  PopUps, 
+  Brands, 
+  HeroSection, 
+  countries, 
+  Categories, 
+  HeroMobile
+}from '../components';
 
 import Modal from '../components/Modal';
 import axios from 'axios';
@@ -24,36 +34,41 @@ const Home = () => {
   const brands_ref = useRef(null);
   const [country, setCountry] = useState('');
  const countriesList = countries
+ const currencies = JSON.parse(localStorage.getItem('USD_KSH')) || {KES:147} ;
+//  const currencyData = localStorage.getItem('currencyData') || 'KES';
 
- const [currencyData, setCurrencyData] = useState('');
+ const [currencyData, setCurrencyData] = useState(localStorage.getItem('currencyData') || null);
 // const currency  = countriesList.filter(country => country.abbreviation === userCountry)[0].currency
 
 
 useEffect(()=>{
   // Fetches user location based on IP address
-  axios.get(
-    'https://ipinfo.io?token=0b3c48d0a4400f'
-    )
-      .then(response => {
-        const data = response.data;
-        const userCountry = data.country;
-        setCountry(userCountry);
-        localStorage.setItem('country', userCountry)
-        setCurrencyData(countriesList.filter(country => country.abbreviation === userCountry)[0].currency)
-        localStorage.setItem('currencyData', countriesList.filter(country => country.abbreviation === userCountry)[0].currency)
-        console.log(currencyData)
-        console.log(data)
-      })
-      .catch(error => {
-        console.error('Error fetching IP data:', error);
-        console.log('Error fetching IP data:', error)
-      });
+  if(currencyData === null){
+    axios.get('https://ipinfo.io?token=0b3c48d0a4400f')
+    .then(response => {
+      const data = response.data;
+      const userCountry = data.country;
+      setCountry(userCountry);
+      localStorage.setItem('country', userCountry)
+      setCurrencyData(countriesList.filter(country => country.abbreviation === userCountry)[0].currency)
+      localStorage.setItem('currencyData', countriesList.filter(country => country.abbreviation === userCountry)[0].currency)
+      console.log(currencyData)
+      console.log(data)
+    })
+    .catch(error => {
+      console.error('Error fetching IP data:', error);
+      console.log('Error fetching IP data:', error)
+    });
+  }
+
 
   fetch('https://api.exchangerate-api.com/v4/latest/USD')
   .then(response =>{
+    
       return response.json();
 
   }).then(data =>{
+  console.log(data)
     const currency = data.rates;
       localStorage.setItem('USD_KSH', JSON.stringify(currency) || [])
   }).catch(err=>{

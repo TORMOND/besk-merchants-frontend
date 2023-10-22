@@ -1,4 +1,4 @@
-import useFetch from '../UseFetch';
+
 import { countries } from './data/locations';
 // FontAwesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,7 +6,6 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { CartContext } from "../Context/CartContext";
 import Loading from './Loading';
 
 import { Splide, SplideSlide } from '@splidejs/react-splide';
@@ -48,25 +47,26 @@ const Products = () => {
         setIsPending(false)
         setError(error.message)
       })
-   }
-   useEffect(()=>{
-      prodContext.items.length>0?setProducts(prodContext.items):fetchProducts()
-    }, []);
-
-   // const cart = useContext(CartContext);
+   } 
    const currencies = JSON.parse(localStorage.getItem('USD_KSH')) || {KES:147} ;
       const currencyData = localStorage.getItem('currencyData') || 'KES';
       function findValueByKey(obj, key) {
         return obj[key];
       }
-      console.log(currencies)
+   useEffect(()=>{
+      prodContext.items.length>0?setProducts(prodContext.items):fetchProducts()
+    }, []);
+
+   // const cart = useContext(CartContext);
+  
+      // console.log(currencies)
       
       const currencyValue = findValueByKey(currencies, currencyData);
-      if (currencyValue !== undefined) {
-        console.log(`The value for  is ${currencyValue}`);
-      } else {
-        console.log(`${currencyData} not found in the object`);
-      }
+      // if (currencyValue !== undefined) {
+      //   console.log(`The value for  is ${currencyValue}`);
+      // } else {
+      //   console.log(`${currencyData} not found in the object`);
+      // }
 let categories = [] 
 const findCategories =(products)=>{
 
@@ -183,7 +183,7 @@ return y
                   </div> 
                   <div className="p-4">
                   <p className='Product-title'>{product.title}</p>  
-                  <span>${product.price*currency}</span>
+                  <span>{currencyData}  {product.price*currency}</span>
                   </div>
                   </a>
                </div>

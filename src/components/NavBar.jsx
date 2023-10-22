@@ -1,7 +1,6 @@
 import { useRef, useState} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuthContext } from '../Hooks/useAuthContext';
-import { ProductsContext } from '../Context/ProductsContext';
 import { useLogout } from '../Hooks/useLogout';
 import SideMenu from './SideMenu';
 
@@ -14,6 +13,7 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { CartContext } from "../Context/CartContext";
 import { useContext } from "react";
 import SearchBar from './SearchBar';
+import LocationSelection from './LocationSelection';
 
 const NavBar = ({ categories, handleBrands, handleContacts, handleOffers, search, setSearch}) => {
   
@@ -54,6 +54,7 @@ const handleLogout =()=>{
 const userProfile = () =>{
   setUserBar(!userBar)
 }
+
 const modalRef = useRef(null);
 const handleClickOutside = (event) => {
   if (!modalRef.current || !modalRef.current.contains(event.target)) {
@@ -67,32 +68,12 @@ const selectProduct = (event, id)=>{
  navigate(`/ProductPage/${id}`)
 }
 
-const [searchCustomerDetails, setSearchCustomerDetails] = useState(''); 
-const prodContext = useContext(ProductsContext);
-const x = prodContext.items;
-const handleKeyPress = (event) => {
-    if (event.key === 'Enter') {
-      // Call your function or perform an action here
-      handleEnterKeyAction();
-    }
-  };
-const handleEnterKeyAction = () => {
-    // Replace this with your desired action
-    console.log('Enter key was pressed. Input value:',searchCustomerDetails);
-    if (searchCustomerDetails !==null && searchCustomerDetails !==''){
-        navigate('/search-catalog/' + searchCustomerDetails)
-    }
-  };
-
-const handleSearch = x.filter(purchase=>   
-    Object.values(purchase).join('').toLowerCase().trim().includes(searchCustomerDetails)
-    )
-    
-const purchasesToDisplay = searchCustomerDetails ? handleSearch : x;  
-
-const toggleSearch =()=>{
-  setSearchCustomerDetails('')
+const [locationSetUp, setLocation] = useState(false); 
+const locationSelection = () =>{  
+  setLocation(!locationSetUp)         
 }
+
+
     return (
    <div className="flex flex-col bg-black w-full box-border top-0 fixed z-20 mb-10" >
   {userBar &&  <div  ref={modalRef} className='dropdown-list absolute z-20 ml-[70vw] lg:ml-[86vw] rounded-md mt-12 bg-white shadow-lg py-4 px-6 '>
@@ -124,9 +105,10 @@ const toggleSearch =()=>{
 }
     </div>
 }
+{locationSetUp && <LocationSelection locationSelection={locationSelection} />}
      <div className="flex  sm:flex-row md:items-center justify-between bg-black w-full  text-gray-50 py-2 px-4  box-border ">
       <h2 className='text-lg cursor-pointer' onClick={homePage}>BESK MERCHANTS</h2> 
-       <h3 className='text-start cursor-pointer hidden lg:inline-block'><FontAwesomeIcon icon={faLocationDot} size="lg" /> {country}</h3>
+       <h3 className='text-start cursor-pointer hidden lg:inline-block' onClick={locationSelection}><FontAwesomeIcon icon={faLocationDot} size="lg" /> {country}</h3>
       <div className='hidden lg:inline-block'>
         <SearchBar  />
       </div>
@@ -190,7 +172,7 @@ const toggleSearch =()=>{
      </div>
 
  <div className="w-full flex items-center gap-2 py-2 lg:hidden px-5">
-<h3 className='text-start cursor-pointer text-white'><FontAwesomeIcon icon={faLocationDot} size="lg" /> {country}</h3>
+<h3 className='text-start cursor-pointer text-white' onClick={locationSelection}><FontAwesomeIcon icon={faLocationDot} size="lg" /> {country}</h3>
          <SearchBar />
       </div>     
 

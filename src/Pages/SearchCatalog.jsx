@@ -202,7 +202,13 @@ const handlBrandChange = (event) => {
 </div>
 ))}
             </div>
-            {products &&
+
+
+
+   </div>   
+     ) )}
+
+{products &&
                <div className="flex gap-2.5 py-2.5 px-5 justify-end ">
                 <p>{page+1} out of: {pageCount}</p>
                 <button
@@ -213,10 +219,6 @@ const handlBrandChange = (event) => {
                  onClick={handleNext} disabled={page===pageCount}>Next</button>
                </div> 
                }
-
-
-   </div>   
-     ) )}
    </div>
         
             

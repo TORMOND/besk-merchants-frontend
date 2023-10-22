@@ -63,6 +63,15 @@ const FilteredCategoryPage = () => {
   const toggleSearch =()=>{
     setIsModal(!isModal)
   }
+    // const cart = useContext(CartContext);
+    const currencies = JSON.parse(localStorage.getItem('USD_KSH')) || {KES:147} ;
+    const currencyData = localStorage.getItem('currencyData') || 'KES';
+    function findValueByKey(obj, key) {
+      return obj[key];
+    }
+    
+    const currencyValue = findValueByKey(currencies, currencyData);
+   
 
   let brands = [] 
 const findCategories =(products)=>{
@@ -166,7 +175,7 @@ return (
    
    >
    <p>{product.title}</p>
-   <span>${product.price}</span>
+   <span>{currencyData} {Math.ceil(product.price*currencyValue)}</span>
    
    </div>
    <button onClick={()=>cart.addOneToCart(product)} 
