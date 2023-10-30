@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuthContext } from './useAuthContext'
 import { useNavigate } from 'react-router-dom';
 import { backend } from "../components/data/url";
-// import { useHistory } from 'react-router-dom';
+
 export const useLogin = ()=>{
     const [ error, setError] = useState(null)
     const [ isLoading, setIsLoading] = useState(null)
@@ -32,10 +32,12 @@ console.log(email, password)
             //update the auth context
             dispatch({type:'LOGIN', payload:json})
             setIsLoading(false)
-            // navigate('/')
-            if (navigate.canGoBack()) {
-                navigate.goBack();
-              }
+            // if(navigate(-1)== '/SignupPage'){
+            //     navigate(-2)
+            // }
+            console.log(navigate(-1))
+            navigate(-1)
+            
             //   history.goBack();
         }
     }

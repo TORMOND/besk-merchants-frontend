@@ -74,6 +74,7 @@ const Footer = () => {
                     <div>
                     <h3>HELP</h3>
                         <ul>
+                            <li>Services</li>
                             <li>Customer Service</li>
                             <li>Legal & Privacy</li>
                            

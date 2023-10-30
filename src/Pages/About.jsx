@@ -59,7 +59,11 @@ return(
         <div className='w-full'>
             <nav className="w-full flex flex-col">
                 <div className='w-full flex items-center  justify-between bg-gray-900 p-2 text-white'>
-                <h3>BESK MERCHANTS</h3>
+                <h3>
+                <Link to="/" className="p-3 inline-block ">
+              BESK MERCHANTS
+            </Link>
+            </h3>
                 <div className="flex gap-2.5">
                     <ul className="flex gap-2  items-center font-semibold ">
                         <li>About Us</li>
@@ -79,7 +83,7 @@ return(
             <div className="max-w-6xl mx-auto">
 
                 <h3 className={styles.sectionHeadText}>About Us</h3>
-                <div className=''>
+                <div className='p-3 my-4'>
                     <p>At Besk Merchants, we pride ourselves on being more than just an e-commerce platform; we are your trusted partner in discovering a world of possibilities right at your fingertips. 
                     </p>
                         <p>Our mission is simple: to provide you with a seamless and secure online shopping experience while showcasing the best products from around the globe. We understand the diverse and dynamic needs of our customers.   
@@ -125,8 +129,8 @@ Shop with us today and experience the world of convenience, quality, and afforda
           <p className={styles.sectionSubText}>What others say</p>
           <h2 className={styles.sectionHeadText}>Testimonials.</h2>
         </motion.div>
-      </div>
-      <div className={`-mt-20 pb-14 ${styles.paddingX} grid grid-cols-1 lg:grid-cols-3 gap-7  text-black`}>
+      </div> 
+      <div className={`-mt-20 pb-14 ${styles.paddingX} max-w-6xl grid grid-cols-1 lg:grid-cols-3 gap-7  text-black`}>
         {testimonials.map((testimonial, index) => (
           <FeedbackCard key={testimonial.name} index={index} {...testimonial} />
         ))}

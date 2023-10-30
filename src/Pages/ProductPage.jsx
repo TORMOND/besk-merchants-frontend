@@ -8,10 +8,8 @@ const ProductPage = () => {
 
     const { id } = useParams()
     const navigate = useNavigate()
-
     console.log(id)
 
-    
     useEffect(() => {
       window.scrollTo(0, 0);
     }, []);

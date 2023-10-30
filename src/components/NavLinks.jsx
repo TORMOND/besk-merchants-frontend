@@ -17,7 +17,7 @@ const NavLinks = () => {
         <div key={index} className="lg:block w-full">
           <div className="px-3 text-left md:cursor-pointer group flex text-gray-600">
             <h3
-              className="text-sm lg:text-lg w-full lg:w-fit lg:text-md py-1 flex justify-between items-center md:pr-0 pr-5 group "
+              className="text-sm lg:text-lg w-full lg:w-fit lg:text-md py-1 flex justify-between items-center md:pr-0 pr-5 group"
               onClick={() => {
                 heading !== link.name ? setHeading(link.name) : setHeading("");
                 setSubHeading("");
