@@ -120,7 +120,7 @@ const SelectedProduct = () => {
  const [productExists, setProductExists] = useState(false);
  
 //  const [isInCart, setIsInCart ] = useState()
-//  
+
 
 
  const checkProductExistence = (productId) => {
@@ -263,7 +263,8 @@ const SelectedProduct = () => {
 {product.color.length>0 &&<ul className='my-2'>
   <li className='flex gap-2'>
     <p className=''>Color: </p>
-   
+
+
    {product.color.map((color) => (
      <label key={color} className='flex gap-1'>
      <input

@@ -1,13 +1,7 @@
 // FontAwesome
 import { Splide, SplideSlide } from '@splidejs/react-splide';
-// import '@splidejs/react-splide/css';
-
-// // or other themes
-// import '@splidejs/react-splide/css/default';
-// import '@splidejs/react-splide/css/sea-green';
-
-// // or only core styles
-// import '@splidejs/react-splide/css/core';
+import { useEffect, useState } from 'react';
+import {backend} from './data/url';
 const options = {
      type         : 'loop',
      autoplay     : true,
@@ -16,11 +10,41 @@ const options = {
    };
 
 const HeroSection = () => {
-  
+ const  [data, setData] = useState([]);
+  useEffect(() => {
+     fetch(`${backend}/heroSection`)
+     .then(response => response.json())
+     .then(data =>{
+          setData(data)
+          console.log(data)
+     })
+     .catch(error => console.log(error))
+  }, []);
  
   return (
     <div className='mt-16 pb-5 hidden lg:flex'> 
+    {data.length > 0?
      <Splide  
+     options={options}
+     hasTrack={true}
+     className="w-full box-border h-96 p-3 flex  bg-white relative"
+     >
+
+     {data.map((item, index) => (
+
+     <SplideSlide key={index} className='w-full '>
+
+     <div
+           className={`flex flex-col justify-center items-center  h-full rounded-md object-cover bg-no-repeat  lg:text-lg`}
+           style={{backgroundImage: `url(${item.img})`}}
+          >
+               <h2 className='text-lg md:text-xl lg:text-2xl'>{item.name}</h2>
+                 </div>
+     </SplideSlide>
+     ))}
+</Splide>:
+
+  <Splide  
      options={options}
      hasTrack={true}
      className="w-full box-border h-96 p-3 flex  bg-white relative"
@@ -63,6 +87,10 @@ const HeroSection = () => {
 
 </Splide>
 
+
+
+}
+   
     </div>
   );
 };

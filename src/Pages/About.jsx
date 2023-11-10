@@ -31,7 +31,7 @@ const About =()=>{
           <p className=' font-black text-[28px]'>"</p>
       
           <div className='mt-1'>
-            <p className=' tracking-wider text-[18px]'>{testimonial}</p>
+            <p className=' tracking-wider text-[14px]'>{testimonial}</p>
       
             <div className='mt-7 flex justify-between items-center gap-1'>
               <div className='flex-1 flex flex-col'>

@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { CartContext } from "../Context/CartContext";
 import { useContext, useState, useEffect } from "react";
 import { useAuthContext } from '../Hooks/useAuthContext';
@@ -12,8 +12,11 @@ import {Footer, NavBar, MpesaModal, Modal, Cancel, Success } from "../components
 import { backend } from "../components/data/url";
 
 const Cart = () => {
-
+     const  { one }  = useParams();
     const navigate = useNavigate()
+   
+    console.log(one)
+
     const signInUser =()=>{
         navigate('/LoginPage')
       }

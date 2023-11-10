@@ -31,7 +31,7 @@ function App() {
     <Route path='/SignupPage' element={<SignUpPage />}></Route>
     <Route path='/Orders' element={<OrdersPage />} ></Route>
     <Route path='/ForgotPassword' element={<ForgotPassword />} ></Route>
-    <Route path='/cart' element={<Cart/>}></Route>
+    <Route path='/cart' component={Cart} element={<Cart/>}></Route>
     <Route path='/paypal' element={<Paypal/>}></Route>
     <Route path='/FrequentQuestions' element={<FrequentQuestions/>}></Route>
     <Route path='/catalog/:categ/:searchTerm' element={<Catalog/>}></Route>
@@ -41,7 +41,7 @@ function App() {
     <Route path='/Terms & Conditions' element={<TermsConditions />}></Route>
     <Route path='/Profile' element={<ProfilePage />}></Route>
     <Route path='/contactUs' element={<Contacts/>}></Route>
-    <Route path='/ProductPage/:id' element={<ProductPage/>}></Route>
+    <Route path='/ProductPage/:id' component={ProductPage} element={<ProductPage/>}></Route>
     <Route path='/Category/:categoryName' element={<FilteredCategoryPage />}></Route>
     <Route path="*"  element={<NotFound />}></Route>
   </Routes>
