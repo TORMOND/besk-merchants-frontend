@@ -4,3 +4,18 @@
   status = 200
   query = {path = ":path"}
   force = true # COMMENT: ensure that we always redirect
+
+[[redirects]]
+  from = "/productsPage/*"
+  to = "/productsPage/:splat"
+  status = 200
+  query = {path = ":path"}
+  force = true # COMMENT: ensure that we always redirect
+
+[[redirects]]
+  from = "/cart/*"
+  to = "/cart/"
+  status = 200
+  query = {path = ":https://beskmerchants.netlify.app/cart?success={CHECKOUT_SESSION_ID}"}
+  force = true # COMMENT: ensure that we always redirect
+```
