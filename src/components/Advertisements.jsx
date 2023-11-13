@@ -44,7 +44,7 @@ const Advertisements = () => {
   useEffect(() => {
     // Set interval to change the displayed advert every 3 seconds
     const intervalId = setInterval(() => {
-      setCurrentAdIndex((prevIndex) => (prevIndex + 1) % adverts.length);
+      adverts?setCurrentAdIndex((prevIndex) => (prevIndex + 1) % adverts.length): setCurrentAdIndex(0)
     }, 3000);
 
     // Clean up the interval when the component unmounts or adverts change

@@ -176,7 +176,7 @@ const SelectedProduct = () => {
       }
 
      <div className="min-h-[80vh] flex flex-col">
-     <Advertisements />
+  {product && <Advertisements />}   
 {isPending &&
  <div className='w-full box-border'>
         <div className="loading-selected-product flex flex-col lg:flex-row ">
