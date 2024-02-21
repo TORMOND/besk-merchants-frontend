@@ -14,9 +14,11 @@ import CommentsSection from './CommentsSection';
 import { useAuthContext } from '../Hooks/useAuthContext';
 import Advertisements from './Advertisements';
 import SimilarProducts from './SimilarProducts';
-
+// const apiKey = process.env.REACT_APP_API_KEY;
+//   console.log(apiKey)
 const SelectedProduct = () => {
   const id = localStorage.getItem('id');
+  
   const currencies = JSON.parse(localStorage.getItem('USD_KSH')) || {currencyValue:147} ;
       const currencyData = localStorage.getItem('currencyData') || 'currencyValue';
       function findValueByKey(obj, key) {
@@ -287,6 +289,8 @@ const SelectedProduct = () => {
   <li className='flex gap-2'>
     <p className=''>Sizes: </p>
    
+
+
    {product.size.map((size) => (
     <label key={size} className='flex gap-1'>
 			<input

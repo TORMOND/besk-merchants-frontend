@@ -45,7 +45,7 @@ const Advertisements = () => {
     // Set interval to change the displayed advert every 3 seconds
     const intervalId = setInterval(() => {
       adverts?setCurrentAdIndex((prevIndex) => (prevIndex + 1) % adverts.length): setCurrentAdIndex(0)
-    }, 3000);
+    }, 10000);
 
     // Clean up the interval when the component unmounts or adverts change
     return () => clearInterval(intervalId);

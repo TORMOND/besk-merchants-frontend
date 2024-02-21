@@ -1,4 +1,7 @@
-import { NavBar, Products, Footer, PopUps, Brands, HeroSection, Categories, HeroMobile}from '../components';
+import {
+  NavBar,
+  Footer, 
+}from '../components';
 import{ useEffect } from "react";
 const ReturnPolicy = () => {
   useEffect(() => {

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import  { useState, useRef, useEffect } from 'react';
 import { useLogout } from '../Hooks/useLogout';
+import env from "react-dotenv";
 
 // FontAwesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -23,6 +24,7 @@ import axios from 'axios';
 const Home = () => {     
 
   const navigate = useNavigate();
+  const api = import.meta.env.VITE_BACKEND_URL;
 
   const [userBar, setUserBar] = useState(false);
   const userProfileBar =useRef(null);
@@ -58,6 +60,8 @@ useEffect(()=>{
     .catch(error => {
       console.error('Error fetching IP data:', error);
       console.log('Error fetching IP data:', error)
+      setCurrencyData('KES')
+      localStorage.setItem('currencyData', 'KES')
     });
   }
 

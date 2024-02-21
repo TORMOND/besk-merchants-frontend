@@ -32,6 +32,7 @@ function App() {
     <Route path='/Orders' element={<OrdersPage />} ></Route>
     <Route path='/ForgotPassword' element={<ForgotPassword />} ></Route>
     <Route path='/cart' component={Cart} element={<Cart/>}></Route>
+    <Route path="/cart:param1" element={<Cart/>} />
     <Route path='/paypal' element={<Paypal/>}></Route>
     <Route path='/FrequentQuestions' element={<FrequentQuestions/>}></Route>
     <Route path='/catalog/:categ/:searchTerm' element={<Catalog/>}></Route>

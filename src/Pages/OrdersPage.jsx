@@ -8,6 +8,7 @@ import { NavBar, Footer}from '../components';
 const OrdersPage = () => {
 // const {user} = useAuthContext();
 // console.log(user.user._id)
+
 let id = '64ecbf2b6a657955a6e86500' ;
 
 const [data, setData] = useState(null);
@@ -23,6 +24,7 @@ const[error, setError] = useState(null);
           return res.json();
         }).then(data=> {    
           setData(data.response);
+          console.log(data)
           setPending(false)
           
         })
