@@ -1,15 +1,15 @@
 const testimonials = [
     {
       testimonial:
-      "I had an amazing experience shopping on this ecommerce website! The product selection is diverse, and I found exactly what I was looking for. The ordering process was smooth, and my package arrived promptly. The quality of the product exceeded my expectations. I highly recommend this site for hassle-free shopping and excellent service.",
+      "Balanced Pathways Psychiatry providers are very professional and knowlegeable. They went above and beyond to meet and exceed my expectations. I am very pleased with my results.",
       name: "Sara Lee",
-      designation: "CFO",
+      designation: "Texas location.",
       company: "Acme Co",
       image: "",
     },
     {
       testimonial:
-      "I'm a frequent online shopper, and I must say this ecommerce website stands out from the rest. The user-friendly interface made navigation a breeze, and the detailed product descriptions helped me make informed decisions. The customer support team was responsive and went above and beyond to assist me. I'm impressed with the overall shopping experience and will definitely be coming back for more.",
+      "Balanced Pathways Mental Health Providers strive to provide quality care and services to patients. The staff are highly knowledgeable and experienced. Its apparent they take pride in patient-centered approach to mental health, ensuring that each patient's needs are met in a timely and efficient manner.",
       name: "Chris Brown",
       designation: "COO",
       company: "DEF Corp",
@@ -17,7 +17,7 @@ const testimonials = [
     },
     {
       testimonial:
-      "This ecommerce site has become my go-to destination for all my shopping needs. The prices are competitive, and the discounts and promotions make it even more budget-friendly. What sets this site apart is the reliability of their delivery. My orders always arrive on time, and the packaging is secure. I appreciate the commitment to customer satisfaction and recommend this website to fellow shoppers.",
+      "I recently was seen by Balanced Pathway provider in an in-person visit. I was very pleased with the care I received. I felt that I was in good hands and that I was getting the best care possible. The treatment plan and follow up care were also top-notch. I would highly recommend this service to anyone seeking mental health care.",
       name: "Lisa Wang",
       designation: "CTO",
       company: "456 Enterprises",

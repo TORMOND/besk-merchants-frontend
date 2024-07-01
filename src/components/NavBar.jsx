@@ -108,7 +108,10 @@ const locationSelection = () =>{
 {locationSetUp && <LocationSelection locationSelection={locationSelection} />}
      <div className="flex  sm:flex-row md:items-center justify-between bg-black w-full  text-gray-50 py-2 px-4  box-border ">
       <h2 className='text-lg cursor-pointer' onClick={homePage}>BESK MERCHANTS</h2> 
-       <h3 className='text-start cursor-pointer hidden lg:inline-block' onClick={locationSelection}><FontAwesomeIcon icon={faLocationDot} size="lg" /> {country}</h3>
+      {country &&
+             <h3 className='text-start cursor-pointer hidden lg:inline-block' onClick={locationSelection}><FontAwesomeIcon icon={faLocationDot} size="lg" /> {country}</h3>
+      }
+
       <div className='hidden lg:inline-block'>
         <SearchBar  />
       </div>

@@ -106,7 +106,8 @@ return y
 
   const userCountry = localStorage.getItem('country');
 //   const [currencyData, setCurrencyData] = useState('');
-   const currency  = countries.filter(country => country.abbreviation === userCountry)[0].currency  || 1;
+   const currency  = userCountry? countries.filter(country => country.abbreviation === userCountry)[0].currency :1;
+   console.log(currency)
    
   
   return ( 
@@ -143,7 +144,7 @@ return y
    
                {products.filter((product)=>product.device ===item).slice(0, 10).map((product)=> (
                   <SplideSlide   key={product._id}
-                  className={`cursor-pointer bg-white duration-75 rounded-sm hover:shadow-xl mx-2 my-0 h-fit flex flex-col shadow-gray-500/50 `} 
+                  className={`cursor-pointer bg-white duration-75 rounded-s m hover:shadow-xl mx-2 my-0 h-fit flex flex-col shadow-gray-500/50 `} 
                    >
                    
        <div 

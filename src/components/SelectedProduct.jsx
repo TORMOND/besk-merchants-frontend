@@ -330,7 +330,8 @@ const SelectedProduct = () => {
           <button disabled={quantity===1000} onClick={incrementQuantity} className="p-2 border-0 w-10 hover:text-purple-500 cursor-pointer">+</button>
           </div>
  <p>{()=>checkProductExistence(product._id)}</p>
-   <button onClick={()=>cart.addOneToCart(product)} 
+   <button 
+   onClick={()=>cart.addOneToCart(product)} 
    className='before:absolute before:-ml-12 before:transition-[width] before:top-0 before:w-0 before:h-full before:bg-purple-500 before:skew-x-45 before:z-[-1] before:duration-1000  overflow-hidden relative    cursor-pointer p-2 flex justify-center max-w-[200px] rounded-sm  duration-1000 border-0 transition-all  text-purple-500 outline outline-offset-2 outline-purple-500 box-border hover:text-white hover:scale-110 hover:shadow-lg hover:shadow-purple-400  hover:before:w-80 '
    >
       <FontAwesomeIcon icon={faCartShopping}  className="shoppingCart" />Add to Cart</button>

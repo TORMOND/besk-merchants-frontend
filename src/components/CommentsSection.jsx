@@ -34,7 +34,7 @@ const CommentsSection = () => {
           return res.json()
       })
       .then(data=>{
-        console.log(data.comments)
+        // console.log(data.comments)
        setUserComments(data.comments)
        setisPending(false)
        setError(null)
