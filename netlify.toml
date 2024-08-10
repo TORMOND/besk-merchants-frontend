@@ -6,8 +6,8 @@
   force = true
 
 [[redirects]]
-  from = "/productsPage/*"
-  to = "/productsPage/:splat"
+  from = "/ProductPage/*"
+  to = "/ProductPage/:splat"
   status = 200
   query = {path = ":https://beskmerchants.netlify.app/productsPage/*"}
   force = true 
